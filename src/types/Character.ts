@@ -11,10 +11,10 @@ type Character = {
 	gender: 'Female' | 'Male' | 'Genderless' | 'unknown';
 	origin: Place;
 	location: Place;
-	image: string; // URL
-	episode: string[]; // URLs
-	url: string; // endpoint
-	created: string; // Time the character was created in the database
+	image: string;
+	episode: string[];
+	url: string;
+	created: string;
 };
 
 export default Character;
