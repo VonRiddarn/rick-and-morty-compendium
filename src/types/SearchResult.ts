@@ -1,7 +1,3 @@
-import Character from "./Character";
-import Episode from "./Episode";
-import Place from "./Place";
-
 type SearchResult<T> = {
 	error?: string;
 	info: {
