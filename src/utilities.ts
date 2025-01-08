@@ -1,4 +1,5 @@
 import api from "./api";
+import Character from "./types/Character";
 import Place from "./types/Place";
 import SearchResult from "./types/SearchResult";
 
@@ -17,12 +18,18 @@ const getPlaces = async (page = 1): Promise<void> => {
 
         // Get characters for this location and display their images
         const characters = await api.getCharacters.fromUrls(e.residents);
-        characters.forEach((c) => {
-            const imgElement = document.createElement("img");
-            imgElement.src = c.image; // Set the image source
-            main.appendChild(imgElement);
-        });
+		debugPlaceCharacterImages(characters);
     }
 };
 
-export { getPlaces };
+const debugPlaceCharacterImages = (characters: Character[]) => {
+
+	characters.forEach((c) => {
+		const imgElement = document.createElement("img");
+		imgElement.src = c.image; // Set the image source
+		main.appendChild(imgElement);
+	});
+
+}
+
+export { getPlaces, debugPlaceCharacterImages };
