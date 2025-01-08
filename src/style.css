@@ -49,6 +49,7 @@ h1 {
 
 img {
 	max-width: 320px;
+	border-radius: 50%;
 }
 
 main {
