@@ -1,6 +1,8 @@
 import Character from "./types/Character";
 import SearchResult from "./types/SearchResult";
 
+const API_ROOT = "https://rickandmortyapi.com/api/";
+
 const api = Object.freeze({
 	getCharacters: {
 		fromIds: async (ids: number[]): Promise<Character[]> => {
@@ -52,7 +54,7 @@ const api = Object.freeze({
 });
 
 const getEndPoint = (point: "character" | "location" | "episode"): string => {
-	return `https://rickandmortyapi.com/api/${point}/`;
+	return `${API_ROOT}${point}/`;
 }
 
 export default api;
