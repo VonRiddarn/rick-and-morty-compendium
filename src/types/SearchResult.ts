@@ -1,5 +1,4 @@
 type SearchResult<T> = {
-	error?: string;
 	info: {
 		count: number;
 		pages: number;
