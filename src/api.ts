@@ -50,6 +50,9 @@ const api = Object.freeze({
 			return await response.json() as Character | null;
 
 		}
+	},
+	getLocations: {
+		// Add stuff here
 	}
 });
 
