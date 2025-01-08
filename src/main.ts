@@ -16,7 +16,7 @@ document.getElementById('characters-button')?.addEventListener('click', async ()
 
 document.getElementById('locations-button')?.addEventListener('click', () => {
 	main.innerHTML = "";
-	getPlaces(lp++);
+	getPlaces(lp++); // Disgusting test code
 });
 
 document.getElementById('episodes-button')?.addEventListener('click', () => {
