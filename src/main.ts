@@ -3,14 +3,15 @@
 // https://github.com/Rob--W/cors-anywhere
 const main = document.querySelector("main") as HTMLElement;
 
-import {getCharacters, getPlaces} from "./utilities";
+import api from "./api";
+import { getPlaces} from "./utilities";
 
 let cp = 1;
 let lp = 1;
 
-document.getElementById('characters-button')?.addEventListener('click', () => {
+document.getElementById('characters-button')?.addEventListener('click', async () => {
 	main.innerHTML = "";
-	getCharacters(cp++);
+	console.log(await api.getCharacters.fromPage(cp++));
 });
 
 document.getElementById('locations-button')?.addEventListener('click', () => {
