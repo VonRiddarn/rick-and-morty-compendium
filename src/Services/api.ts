@@ -4,7 +4,7 @@ import SearchResult from "../types/SearchResult";
 
 const API_ROOT = "https://rickandmortyapi.com/api/";
 
-const buildEndPoint = (endpoint: Endpoint): string | null => `${API_ROOT}${endpoint}/`;
+const buildEndPoint = (endpoint: Endpoint): string => `${API_ROOT}${endpoint}/`;
 
 const api = {
 	// Generic searches (Possible because the API is structured <3)
