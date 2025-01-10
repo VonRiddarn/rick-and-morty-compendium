@@ -3,7 +3,7 @@
 // https://github.com/Rob--W/cors-anywhere
 const main = document.querySelector("main") as HTMLElement;
 
-import api from "./services";
+import api from "./Services/api";
 import { debugPlaceCharacterImages, getPlaces} from "./utilities";
 
 let cp = 1;

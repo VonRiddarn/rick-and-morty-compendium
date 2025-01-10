@@ -1,5 +1,5 @@
-import Character from "./types/Character";
-import SearchResult from "./types/SearchResult";
+import Character from "../types/Character";
+import SearchResult from "../types/SearchResult";
 
 const API_ROOT = "https://rickandmortyapi.com/api/";
 

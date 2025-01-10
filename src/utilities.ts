@@ -1,4 +1,4 @@
-import api from "./services";
+import api from "./Services/api";
 import Character from "./types/Character";
 import Place from "./types/Place";
 import SearchResult from "./types/SearchResult";
