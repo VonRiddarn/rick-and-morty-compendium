@@ -47,7 +47,7 @@ h1 {
 	-webkit-text-stroke-color: #284649;
 }
 
-img {
+img:not(#logo) {
 	max-width: 320px;
 	border-radius: 50%;
 }
