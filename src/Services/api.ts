@@ -1,4 +1,5 @@
 import Character from "../types/Character";
+import Place from "../types/Place";
 import SearchResult from "../types/SearchResult";
 
 const API_ROOT = "https://rickandmortyapi.com/api/";
@@ -51,8 +52,16 @@ const api = Object.freeze({
 
 		}
 	},
-	getLocations: {
-		// Add stuff here
+	getPlaces: {
+		fromPage: async (page: Number): Promise<Place[]> => {
+			const response = await fetch(`${getEndPoint("location")}/${page}`);
+			const data = await response.json() as SearchResult<Place> | null;
+
+			if(data === null)
+				return [];
+
+			return data.results;
+		},
 	}
 });
 
