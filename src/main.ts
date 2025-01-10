@@ -10,7 +10,7 @@ let ep = 1;
 
 document.getElementById('characters-button')?.addEventListener('click', async () => {
 	main.innerHTML = "";
-	console.log(await api.getObjectsFromPage<Character>(cp++, "character"));
+	console.log(await api.getObjectsFromPage<Character>(cp++, "character", [{key: "name", value: "rick"}]));
 });
 
 document.getElementById('locations-button')?.addEventListener('click', async () => {
