@@ -1,3 +1,5 @@
+import "./style.scss";
+
 const main = document.querySelector("main") as HTMLElement;
 
 import api from "./Services/api";
