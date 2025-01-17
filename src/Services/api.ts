@@ -1,4 +1,3 @@
-import Character from "../types/Character";
 import Endpoint from "../types/Endpoint";
 import Query from "../types/Query";
 import SearchResult from "../types/SearchResult";
