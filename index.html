@@ -3,20 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Rick and Morty compendioum</title>
+	<title>Rick and Morty compendium</title>
 </head>
 	<body>
-		<h1><img id="logo" src="./public/images/logo.svg" alt="Rick & Morty" /></h1>
-		<p>The complete compendium!</p>
-		<p>VERY TEMPORARY UI - WILL CHANGE!</p>
-		<span>
-			<button id="characters-button">Characters</button>
-			<button id="locations-button">Locations</button>
-			<button id="episodes-button">Episodes</button>
-		</span>
-		<main>
-			<p>More to come!</p>
-		</main>
+		<!-- Lord, have mercy upon me. This is going to be hard. -->
+		<!-- TODO: make all elements in header inline. --> 
+		<header>
+			<Button id="preferences" style="display: none;">Back</Button>
+			<h1>Rick and Morty compendium</h1>
+			<div>
+				<Button id="preferences">Preferences</Button>
+				<Button id="favorites">Favorites</Button>
+			</div>
+		 </header>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>

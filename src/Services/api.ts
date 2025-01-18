@@ -1,15 +1,9 @@
-import Endpoint from "../types/Endpoint";
-import Query from "../types/Query";
-import SearchResult from "../types/SearchResult";
+import { Endpoint, Query, SearchResult } from "../types/api.types";
 
 const API_ROOT = "https://rickandmortyapi.com/api/";
 
-// TODO: Make this accept a query: value pair array and append it.
-// This makes us able to dynamically add the queries from the caller
-/*
-	bep<T>(endpoint: Endpoint, queries:Query<T>)
-*/
-const buildEndPoint = (endpoint: Endpoint, queries: Query[] = []): string => `${API_ROOT}${endpoint}/${constructQuery(queries)}`;
+
+const buildEndpoint = (endpoint: Endpoint, queries: Query[] = []): string => `${API_ROOT}${endpoint}/${constructQuery(queries)}`;
 
 const constructQuery = (queries: Query[]): string => {
 	if(queries.length <= 0)
@@ -23,9 +17,17 @@ const constructQuery = (queries: Query[]): string => {
 // TODO: Add some Try-catches to handle 4xx errors
 
 const api = {
+
+	extractEndpoint: <T extends { url: string }>(entity: T): string => {
+		// Example: https://rickandmortyapi.com/api/episode/23
+		// ["https:", "", "rickandmortyapi.com", "api", "episode", "23"]
+		const parts = entity.url.split('/');
+		return parts[parts.length - 2] || "";
+	},
+
 	// Generic searches (Possible because the API is structured <3)
 	getObjectFromId: async <T>(id: Number, endpoint:Endpoint): Promise<T | null> => {
-		const response = await fetch(`${buildEndPoint(endpoint)}/${id}`);
+		const response = await fetch(`${buildEndpoint(endpoint)}/${id}`);
 		return await response.json() as T | null;
 	},
 	getObjectFromUrl: async <T>(url: string): Promise<T | null> => {
@@ -33,13 +35,13 @@ const api = {
 		return await response.json() as T | null;
 	},
 	getObjectsFromRoot: async <T>(endpoint: Endpoint, queries: Query[] = []): Promise<T[]> => {
-		const response = await fetch(`${buildEndPoint(endpoint, queries)}`);
+		const response = await fetch(`${buildEndpoint(endpoint, queries)}`);
 		const data = await response.json() as T[] | null;
 
 		return data === null ? [] : data;
 	},
 	getObjectsFromIds: async <T>(ids: Number[], endpoint:Endpoint): Promise<T[]> => {
-		const response = await fetch(`${buildEndPoint(endpoint)}${ids.join(",")}/`);
+		const response = await fetch(`${buildEndpoint(endpoint)}${ids.join(",")}/`);
 		const data = await response.json() as T[] | null;
 
 		return data === null ? [] : data;
@@ -52,7 +54,7 @@ const api = {
 
 		queries.unshift({key: "page", value: page.toString()});
 
-		const response = await fetch(`${buildEndPoint(endpoint, queries)}`);
+		const response = await fetch(`${buildEndpoint(endpoint, queries)}`);
 		const data = await response.json() as SearchResult<T> | null;
 
 		return data === null ? [] : data.results;
