@@ -1,0 +1,48 @@
+@use "/src/sass/base/reset";
+
+// Desktop
+$h1-size-desktop: calc(3vw + 1.2em);
+$header-size-desktop: 10vw;
+$button-size-desktop: 5vw;
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	background-color: rgb(194, 226, 255);
+	width: 100%;
+	padding: 1rem;
+
+
+
+	* {
+		display: inline;
+	}
+
+	button {
+		background-color: rgb(214, 214, 214);
+		color: black;
+		border-radius: 50%;
+
+		margin: 0 1rem;
+		min-width: $button-size-desktop;
+		min-height: $button-size-desktop;
+
+		font-size: calc($button-size-desktop / 2);
+	}
+
+	button:hover {
+		background-color: white;
+		color: blue;
+	}
+
+	h1 {
+		color: #40b5cb;
+		text-shadow: #b7d640 2px 2px;
+		font-size: $h1-size-desktop;
+		line-height: 1.1;
+		-webkit-text-stroke-width: 1px;
+		-webkit-text-stroke-color: #284649;
+	}
+}

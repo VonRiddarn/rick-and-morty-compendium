@@ -1,4 +1,5 @@
 @use "/src/sass/base/reset";
+@use "/src/sass/layout/header";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -8,7 +9,8 @@
   color-scheme: light dark;
   
   
-  background-color: #160440;
+  background-color: #ffffff;
+  color: black;
   
   
   font-synthesis: none;
