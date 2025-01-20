@@ -1,13 +1,4 @@
-/*
-	Dark purple:		#160440
-	Outline:			#284649
-	Light blue: 		#40b5cb
-	Light lime green: 	#b7d640
-	
-	Additional
-	Dark blue: 			#266874
-	Dark lime green:	#4b6c3f
-*/
+@use "/src/sass/base/reset";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -26,30 +17,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
 body {
-	margin: 0;
 	display: flex;
 	flex-direction: column;
 	place-items: center;
-}
-
-h1 {
-	color: #40b5cb;
-	text-shadow: #b7d640 2px 2px;
-	font-size: 3.2em;
-	line-height: 1.1;
-	-webkit-text-stroke-width: 1px;
-	-webkit-text-stroke-color: #284649;
-}
-
-img:not(#logo) {
-	max-width: 320px;
-	border-radius: 50%;
 }
 
 main {
