@@ -2,7 +2,7 @@
 
 // Desktop
 $h1-size-desktop: calc(3vw + 1.2em);
-$header-size-desktop: 10vw;
+$header-size-desktop: 10vw; // TODO: Use a mixin to set this instead. So we send something like button($size: 10vw) -- @mobile ($size: 15vw) or whatever
 $button-size-desktop: 5vw;
 
 header {
@@ -20,7 +20,15 @@ header {
 		display: inline;
 	}
 
+	div {
+		display: flex;
+	}
+
 	button {
+		
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		background-color: rgb(255, 255, 255);
 		color: black;
 		border-radius: 50%;
@@ -30,6 +38,12 @@ header {
 		min-height: $button-size-desktop;
 
 		font-size: calc($button-size-desktop / 2);
+
+
+		svg {
+			max-width: calc($button-size-desktop * 0.7);
+			max-height: calc($button-size-desktop * 0.7);
+		}
 	}
 
 	button:hover {
