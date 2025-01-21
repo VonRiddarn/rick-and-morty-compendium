@@ -1,10 +1,7 @@
 import "./style.scss";
-import { injectHeaderSvgs } from "./utils/pageManager";
 
 // TODO: Prebuild page nodes and load node "main" from pageManager
 
-injectHeaderSvgs();
+const main = document.querySelector("main") as HTMLElement;
 
-const body = document.querySelector("body") as HTMLElement;
-
-body.appendChild(document.createElement("p")).innerHTML = "Hello world!";
+main.appendChild(document.createElement("p")).innerHTML = "Hello world!";
