@@ -3,10 +3,11 @@ A streamlined way to look through the public rick and morty api!
 We got **buttons** and **pictures**! What more could you want?
 
 ## Cached element nodes
-We're baking 2 pages at site initialization:  
+We're creating 2 nodes at site initialization:  
 * Main
 * Favorites
 
+**What this implies**  
 The reason for this is because we want to be able to keep state and eventlisteners alive when toggling between them.  
 This will use some extra memory and *might* have slight performance implications, which we will ignore until proven a problem.  
 The resoning:  
@@ -15,7 +16,24 @@ The resoning:
 * Real time background-updates
 
 Note that we are only storing root objects. We will **NOT** cache notes that are applied to different entities.  
-These will be loaded via a dictionary when the entity is shown in the inspector modal.
+These will be loaded via a dictionary when the entity is shown in the inspector modal.  
+
+**How it works**  
+When receieving new information for a page, we apply it to that page's node directly.  
+After a page node has been updated a request is made to update the DOM.  
+The condition for updating the DOM is that the currently viewed page is connected to the updated node.  
+
+## About the inline SVG files in index.html
+I was originally planning on injecting the SVGs dynamically at runtime, but decided against it.  
+**Concidered approaches**  
+* Async fetching of local .svg files
+* An SVG repository object storing SVGs as strings
+
+**Why I decided against**  
+Although dynamic injection would have a nice structure to it, I would still need to have the original file or variable use `fill="currentcolor"` for it to be effective.  
+Otherwise, I'd have to replace the default fill with `currentcolor` at injection.  
+Due to the projects low scope, it's very unlikely that we will face a scenario where we'd benefit marginally from separating the SVGs at this time.  
+On the contray we'd sacrafice the browsers ability to locally cachce the static svg element.  
 
 ## SEO Implications
 Due to how we are loading the headers containing the `h1` tag, as well as the content for `main` dynamically we are missing out on optimization.  
