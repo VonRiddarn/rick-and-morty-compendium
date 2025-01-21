@@ -5,6 +5,8 @@ $h1-size-desktop: calc(3vw + 1.2em);
 $header-size-desktop: 10vw; // TODO: Use a mixin to set this instead. So we send something like button($size: 10vw) -- @mobile ($size: 15vw) or whatever
 $button-size-desktop: 5vw;
 
+$button-hover-color: blue;
+
 header {
 	display: flex;
 	align-items: center;
@@ -14,9 +16,7 @@ header {
 	width: 100%;
 	padding: 1rem;
 
-
-
-	* {
+	> * {
 		display: inline;
 	}
 
@@ -25,7 +25,7 @@ header {
 	}
 
 	button {
-		
+
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -48,6 +48,10 @@ header {
 
 	button:hover {
 		color: blue;
+	}
+
+	#header-btn-favorites:hover {
+		color: red;
 	}
 
 	h1 {
