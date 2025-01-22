@@ -5,12 +5,18 @@ let currentPage: Page | undefined = undefined;
 
 // Wrapper
 export const pageManager = {
+
+	getCurrentPage: () => currentPage as Page,
+
 	switchPage: (newPage: Page) => {
 
 		if(currentPage !== undefined) {
 			currentPage.exit();
 		}
 	
+		// TODO: Kill modal!
+		// modalManager.kill(); Or something
+
 		currentPage = newPage;
 		newPage.enter();
 		
