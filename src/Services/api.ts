@@ -16,6 +16,10 @@ const constructQuery = (queries: Query[]): string => {
 
 // TODO: Add some Try-catches to handle 4xx errors
 
+// TODO: Refactor and rethink how we handle results.
+// We would like the ability to return a SearchResult so that we may use pagnation controls later.
+// However, the "nex" and "prev" properties are string URLs to pages returning SearchResult<T> - not <T[]>.
+
 const api = {
 
 	extractEndpoint: <T extends { url: string }>(entity: T): string => {
