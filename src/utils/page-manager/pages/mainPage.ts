@@ -24,9 +24,25 @@ export const mainPage: Page = {
 	}
 }
 
+let a = mainPage.node.appendChild(document.createElement("button"));
+a.innerHTML = "MORE PEOPLE!";
+a.addEventListener("click", () => {
+	addMorePeople();
+});
+
 const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
 	currentSearch = await api.getResultsFromPage<Character>(1, "character");
-	currentSearch?.results.forEach((e) => mainPage.node.innerHTML += e.name + "<br/>");
+	currentSearch?.results.forEach((e) => mainPage.node.appendChild(document.createElement("p")).innerHTML = e.name);
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 } 
+
+const addMorePeople = async () => {
+	console.log(currentSearch);
+	let s = currentSearch?.info.next;
+	let p = s?.substring(s.length - 1);
+
+	currentSearch = await api.getResultsFromPage<Character>(Number.parseInt(p!), "character");
+	currentSearch?.results.forEach((e) => mainPage.node.appendChild(document.createElement("p")).innerHTML = e.name);
+	console.log(currentSearch);
+}
