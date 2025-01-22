@@ -46,7 +46,8 @@ header {
 		}
 	}
 
-	button:hover {
+	button:hover:not(.disabled) {
+		cursor: pointer;
 		color: blue;
 	}
 
