@@ -51,6 +51,8 @@ export type SearchResult<T> = {
 
 // ----- ----- CUSTOM ----- -----
 
+export type Entity = Character | Place | Episode;
+
 export type Endpoint = "character" | "location" | "episode";
 
 export type Query = {
