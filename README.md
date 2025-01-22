@@ -36,6 +36,10 @@ Due to the projects low scope, it's very unlikely that we will face a scenario w
 On the contray we'd sacrafice the browsers ability to locally cachce the static svg element.  
 
 ## SEO Implications
-Due to how we are loading the headers containing the `h1` tag, as well as the content for `main` dynamically we are missing out on optimization.  
-This is okay in a learning-oriented environment like a school project.  
-In production it would be best to look into `server-side rendering` or `static site generation`.
+~~Due to how we are loading the headers containing the `h1` tag, as well as the content for `main` dynamically we are missing out on optimization.~~  
+~~This is okay in a learning-oriented environment like a school project.~~  
+~~In production it would be best to look into `server-side rendering` or `static site generation`.~~  
+
+We are using a static header with the `h1` base as the main page.  
+This does affect the SEO positively, but wasn't the reason for this design choise.  
+Any and all advanced SEO considerations will not be humored during this project as it will probably fall out of scope, especially with this tech stack.
