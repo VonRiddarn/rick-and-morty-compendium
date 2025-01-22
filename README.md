@@ -3,20 +3,21 @@ A streamlined way to look through the public rick and morty api!
 We got **buttons** and **pictures**! What more could you want?
 
 ## Cached element nodes
-We're creating 2 nodes at site initialization:  
+We're creating 2 element-nodes at site initialization:  
 * Main
 * Favorites
 
-**What this implies**  
+We're then mapping these instances to a "Page" enum for easy access.
 The reason for this is because we want to be able to keep state and eventlisteners alive when toggling between them.  
 This will use some extra memory and *might* have slight performance implications, which we will ignore until proven a problem.  
-The resoning:  
+
+**What this implies**  
 * Rate limit protection
 * Less loading times
 * Real time background-updates
 
-Note that we are only storing root objects. We will **NOT** cache notes that are applied to different entities.  
-These will be loaded via a dictionary when the entity is shown in the inspector modal.  
+Note that we are only storing the visual elements (and button functionality) in the `main` nodes.  
+Data collected from the API, or saved locally by choise is saved separately.  
 
 **How it works**  
 When receieving new information for a page, we apply it to that page's node directly.  
@@ -24,7 +25,9 @@ After a page node has been updated a request is made to update the DOM.
 The condition for updating the DOM is that the currently viewed page is connected to the updated node.  
 
 ## About the inline SVG files in index.html
-I was originally planning on injecting the SVGs dynamically at runtime, but decided against it.  
+I am using inline SVGs to affect their appearance easily using the `currentcolor` attribute as fill.  
+Originally I was planning on injecting the SVGs dynamically at runtime, but decided against it.  
+
 **Concidered approaches**  
 * Async fetching of local .svg files
 * An SVG repository object storing SVGs as strings
