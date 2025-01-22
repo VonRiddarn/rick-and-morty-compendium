@@ -17,7 +17,7 @@ export const initializeHeader = () => {
 		});
 	
 		filterButton?.addEventListener("click", () => {
-			//pageManager.switchPage(pageRepository.pages.main);
+			
 		});
 	
 		favoritesButton?.addEventListener("click", () => {
