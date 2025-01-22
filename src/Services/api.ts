@@ -59,6 +59,15 @@ const api = {
 
 		return data === null ? [] : data.results;
 	},
+	getResultsFromPage: async <Entity>(page: Number, endpoint:Endpoint, queries: Query[] = []): Promise<SearchResult<Entity> | undefined> => {
+
+		queries.unshift({key: "page", value: page.toString()});
+
+		const response = await fetch(`${buildEndpoint(endpoint, queries)}`);
+		const data = await response.json() as SearchResult<Entity> | null;
+
+		return data === null ? undefined : data;
+	},
 } as const;
 
 export default api;
