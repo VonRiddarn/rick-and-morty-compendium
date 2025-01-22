@@ -1,6 +1,6 @@
 import { HeaderType } from "../../../enums/header.enums";
-import { PageId } from "../../../enums/pageManager.enums";
-import { DEBUG, switchPage } from "../../../utils/pageManager";
+import { pageManager } from "../../../utils/page-manager/pageManager";
+import pageRepository from "../../../utils/page-manager/pageRepository";
 import "./header.scss";
 
 // Header navigational buttons
@@ -11,22 +11,17 @@ export const favoritesNutton = document.getElementById("header-btn-favorites") a
 const h1 = document.querySelector("h1") as HTMLElement;
 
 export const initializeHeader = () => {
-
-		header.setHeader("Rick and Morty compendium", HeaderType.Main);
-
 		// Add eventlisteners
 		backButton?.addEventListener("click", () => {
-			switchPage(PageId.Main);
-			header.setHeader("Rick and Morty compendium", HeaderType.Main);
+			pageManager.switchPage(pageRepository.pages.main);
 		});
 	
 		filterButton?.addEventListener("click", () => {
-			DEBUG();
+			//pageManager.switchPage(pageRepository.pages.main);
 		});
 	
 		favoritesNutton?.addEventListener("click", () => {
-			switchPage(PageId.Favorites);
-			header.setHeader("Favorites", HeaderType.Sub);
+			pageManager.switchPage(pageRepository.pages.favorites);
 		});
 }
 
