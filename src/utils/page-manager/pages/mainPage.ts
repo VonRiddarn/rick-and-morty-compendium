@@ -32,17 +32,20 @@ a.addEventListener("click", () => {
 
 const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
-	currentSearch = await api.getResultsFromPage<Character>(1, "character");
+	currentSearch = await api.getResults.fromPage<Character>(1, "character");
 	currentSearch?.results.forEach((e) => mainPage.node.appendChild(document.createElement("p")).innerHTML = e.name);
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 } 
 
 const addMorePeople = async () => {
-	console.log(currentSearch);
-	let s = currentSearch?.info.next;
-	let p = s?.substring(s.length - 1);
+	if(currentSearch === undefined)
+		return;
 
-	currentSearch = await api.getResultsFromPage<Character>(Number.parseInt(p!), "character");
+	let nextPage = currentSearch.info.next;
+	if(nextPage === null)
+		return;
+
+	currentSearch = await api.getResults.fromUrl<Character>(nextPage);
 	currentSearch?.results.forEach((e) => mainPage.node.appendChild(document.createElement("p")).innerHTML = e.name);
 	console.log(currentSearch);
 }
