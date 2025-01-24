@@ -21,8 +21,7 @@ Data collected from the API, or saved locally by choice is saved separately.
 
 **How it works**  
 When receieving new information for a page, we apply it to that page's node directly.  
-After a page node has been updated a request is made to update the DOM.  
-The condition for updating the DOM is that the currently viewed page is connected to the updated node.  
+Since we are replacing main at each page load the DOM will update automatically - because the node is already in the DOM.
 
 ## About the inline SVG files in index.html
 We're using inline SVGs to affect their appearance easily using the `currentcolor` attribute as fill.  
