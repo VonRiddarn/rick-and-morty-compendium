@@ -29,16 +29,42 @@ import api from "./api";
 			This means that if both season and episode is selected in the filter, we can use the URL to just fetch that specific episode.
 */
 
-export const seasons = undefined; //await getAllSeasons();
+export const seasons: { [key: string]: Season } = {};
 
 
 // TODO: Add error catch
 // Nothing here is done yet, everything is subject for change!
-export const getAllSeasons = async ():Promise<Season[] | undefined> => {
+export const getAllSeasons = async () => {
 	const episodes = await generateEpisodeReferences();
-	// generateSeasons(episodes);
-	console.log(episodes);
-	return undefined;
+
+	episodes.forEach((e) => addEpisodeToSeason(parseSignature(e, "season"), e));
+
+	console.log(seasons);
+}
+
+const addEpisodeToSeason = (season:number, episode:EpisodeReference) => {
+
+	if (!seasons[season]) {
+		seasons[season] = {
+			name: `Season ${season}`,
+			episodes: []
+		};
+	}
+
+	seasons[season].episodes.push(episode);
+}
+
+const parseSignature = (episodeReference: EpisodeReference, extract:"season" | "episode"): number => {
+	
+	const match = episodeReference.signature.match(/S(\d+)E(\d+)/);
+	
+	if (!match) 
+		return -1;
+
+	const seasonNumber = parseInt(match[1], 10);
+	const episodeNumber = parseInt(match[2], 10);
+
+	return extract === "season" ? seasonNumber : episodeNumber;
 }
 
 const generateEpisodeReferences = async ():Promise<EpisodeReference[]> => {
