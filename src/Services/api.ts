@@ -1,4 +1,4 @@
-import { Endpoint, Entity, Query, SearchResult } from "../types/api.types";
+import { Endpoint, Query, SearchResult } from "../types/api.types";
 
 const API_ROOT = "https://rickandmortyapi.com/api/";
 
