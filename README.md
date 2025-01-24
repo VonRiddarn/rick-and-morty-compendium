@@ -25,16 +25,16 @@ After a page node has been updated a request is made to update the DOM.
 The condition for updating the DOM is that the currently viewed page is connected to the updated node.  
 
 ## About the inline SVG files in index.html
-I am using inline SVGs to affect their appearance easily using the `currentcolor` attribute as fill.  
-Originally I was planning on injecting the SVGs dynamically at runtime, but decided against it.  
+We're using inline SVGs to affect their appearance easily using the `currentcolor` attribute as fill.  
+The plan was originally to inject the SVGs dynamically at runtime, but that would introduce unnecessary overhead and complexity.  
 
 **Considered approaches**  
 * Async fetching of local .svg files
 * An SVG repository object storing SVGs as strings
 
-**Why I decided against**  
-Although dynamic injection would have a nice structure to it, I would still need to have the original file or variable use `fill="currentcolor"` for it to be effective.  
-Otherwise, I'd have to replace the default fill with `currentcolor` at injection.  
+**Why it was decided against**  
+Although dynamic injection would have a nice structure to it, we would still need to have the original file or variable use `fill="currentcolor"` for it to be effective.  
+Otherwise, we'd have to replace the default fill with `currentcolor` at injection.  
 Due to the projects low scope, it's very unlikely that we will face a scenario where we'd benefit marginally from separating the SVGs at this time.  
 On the contray we'd sacrifice the browsers ability to locally cache the static svg element.  
 
@@ -62,7 +62,7 @@ this approach will ensure that the memory footprint is stable and prevents the a
 | Worst | ~6144 bytes | ~180 bytes | 97.07% |  
 
 *Estimations have been made with the help of ai using a snippet of the dataset.*  
-*As we can see in these estimations, the average Episode can grow up to about `3,4 KB` in size, whilst the reference is just `0,16 KB`.*  
+*As we can see in these estimations, the average Episode can grow up to about `3,4 KB` in size, whilst the reference is just around `0,18 KB`.*  
 
 **This estimation takes into account**
 * Baseline overhead from JS objects
