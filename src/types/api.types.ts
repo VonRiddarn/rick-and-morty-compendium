@@ -53,6 +53,17 @@ export type SearchResult<T> = {
 
 export type Entity = Character | Place | Episode;
 
+export type Season = {
+	name: string;
+	episodes: EpisodeReference[];
+}
+
+export type EpisodeReference = {
+	name: string;
+	signature: string;
+	url: string;
+}
+
 export type Endpoint = "character" | "location" | "episode";
 
 export type Query = {
