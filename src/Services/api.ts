@@ -1,10 +1,14 @@
 import { Endpoint, Query, SearchResult } from "../types/api.types";
 
-const API_ROOT = "https://rickandmortyapi.com/api/";
+const API_ROOT = "https://rickandmortyapi.com/api";
 
 
-const buildEndpoint = (endpoint: Endpoint, queries: Query[] = [], asAdditionals = false): string => `${API_ROOT}${endpoint}/${constructQuery(queries, asAdditionals)}`;
+const buildEndpoint = (endpoint: Endpoint): string => `${API_ROOT}/${endpoint}`;
 
+
+// Note:
+// We could do this using a URLSearchParams object and do "urlParams.set("query", "value")
+// This is good as is, but it's worth mentioning that we could change it in the future.
 const constructQuery = (queries: Query[], asAdditionals = false): string => {
 	if(queries.length <= 0)
 		return "";
@@ -15,10 +19,6 @@ const constructQuery = (queries: Query[], asAdditionals = false): string => {
 }
 
 // TODO: Add some Try-catches to handle 4xx errors
-
-// TODO: Refactor and rethink how we handle results.
-// We would like the ability to return a SearchResult so that we may use pagnation controls later.
-// However, the "nex" and "prev" properties are string URLs to pages returning SearchResult<T> - not <T[]>.
 
 const api = {
 
@@ -32,7 +32,7 @@ const api = {
 	getObject: {
 		// Generic searches (Possible because the API is structured <3)
 		fromId: async <T>(id: Number, endpoint:Endpoint): Promise<T | undefined> => {
-			const response = await fetch(`${buildEndpoint(endpoint)}/${id}`);
+			const response = await fetch(`${buildEndpoint(endpoint)}/${id}/`);
 			return await response.json() as T | undefined;
 		},
 		fromUrl: async <T>(url: string): Promise<T | undefined> => {
@@ -42,13 +42,13 @@ const api = {
 	},
 	getObjects: {
 		fromRoot: async <T>(endpoint: Endpoint, queries: Query[] = []): Promise<T[]> => {
-			const response = await fetch(`${buildEndpoint(endpoint, queries)}`);
+			const response = await fetch(`${buildEndpoint(endpoint)}/${constructQuery(queries)}`);
 			const data = await response.json() as T[] | undefined;
 	
 			return data === undefined ? [] : data;
 		},
 		fromIds: async <T>(ids: Number[], endpoint:Endpoint, queries: Query[] = []): Promise<T[]> => {
-			const response = await fetch(`${buildEndpoint(endpoint)}${ids.join(",")}/${constructQuery(queries)}`);
+			const response = await fetch(`${buildEndpoint(endpoint)}/${ids.join(",")}/${constructQuery(queries)}`);
 			const data = await response.json() as T[] | undefined;
 	
 			return data === undefined ? [] : data;
@@ -61,7 +61,7 @@ const api = {
 	
 			queries.unshift({key: "page", value: page.toString()});
 	
-			const response = await fetch(`${buildEndpoint(endpoint, queries)}`);
+			const response = await fetch(`${buildEndpoint(endpoint)}/${constructQuery(queries)}`);
 			const data = await response.json() as SearchResult<T> | undefined;
 	
 			return data === undefined ? [] : data.results;
@@ -72,7 +72,7 @@ const api = {
 	
 			queries.unshift({key: "page", value: page.toString()});
 	
-			const response = await fetch(`${buildEndpoint(endpoint, queries)}`);
+			const response = await fetch(`${buildEndpoint(endpoint)}/${constructQuery(queries)}`);
 			const data = await response.json() as SearchResult<Entity> | undefined;
 	
 			return data;
