@@ -1,6 +1,5 @@
+import { API_ROOT } from "../config/api.config";
 import { Endpoint, Query, SearchResult } from "../types/api.types";
-
-const API_ROOT = "https://rickandmortyapi.com/api";
 
 
 const buildEndpoint = (endpoint: Endpoint): string => `${API_ROOT}/${endpoint}`;
