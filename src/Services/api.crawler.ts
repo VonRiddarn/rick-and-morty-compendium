@@ -4,42 +4,18 @@
 import { Episode, EpisodeReference, Season } from "../types/api.types";
 import api from "./api";
 
-// Endpoints to crawl: 
-/*
-
-	Location
-		Type
-		Dimension
-		Note: All types and dimensions can be collected in 7 calls.
-
-	Episode
-		Episode (S01E01)
-		Notes: 
-			Do not forget to parse all ansers.
-			They can be typed like so:
-			Season {
-				name: "Season 1",
-				episodes: [{
-						name: "Pilot",
-						url: "the.url-goes.here"
-					}
-				]
-			} 
-
-			This means that if both season and episode is selected in the filter, we can use the URL to just fetch that specific episode.
-*/
-
 export const seasons: { [key: string]: Season } = {};
 
+export const initializeCrawledValues = async () => {
+	await initializeSeasons();
+	await initializeLocations();
+}
 
 // TODO: Add error catch
 // Nothing here is done yet, everything is subject for change!
-export const getAllSeasons = async () => {
+const initializeSeasons = async () => {
 	const episodes = await generateEpisodeReferences();
-
 	episodes.forEach((e) => addEpisodeToSeason(parseSignature(e, "season"), e));
-
-	console.log(seasons);
 }
 
 const addEpisodeToSeason = (season:number, episode:EpisodeReference) => {
@@ -76,7 +52,7 @@ const generateEpisodeReferences = async ():Promise<EpisodeReference[]> => {
 	{
 		references = references.concat(parseEpisodes(currentSearch.results));
 		let nextSearch = currentSearch.info.next;
-		console.log(nextSearch);
+		
 		if(nextSearch === null)
 			break;
 		
@@ -88,4 +64,19 @@ const generateEpisodeReferences = async ():Promise<EpisodeReference[]> => {
 
 const parseEpisodes = (episodes:Episode[]):EpisodeReference[] => {
 	return episodes.map(e => ({ name: e.name, signature: e.episode, url: e.url}));
+}
+
+// TODO: Add crawl for 
+/*
+Location
+		Type
+		Dimension
+		Note: All types and dimensions can be collected in 7 calls.
+*/
+
+const types:string[] = [];
+const dimensions:string[] = [];
+
+const initializeLocations = async () => {
+
 }
