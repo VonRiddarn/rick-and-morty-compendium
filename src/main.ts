@@ -14,6 +14,9 @@ main.appendChild(document.createElement("p")).innerHTML = "Hello world!";
 initializeHeader();
 pageManager.switchPage(pageRepository.pages.main);
 
-await initializeCrawledValues();
 
+// TODO: Edit this flow of data.
+// I'm not sure how SOC it is to call an initializer like this with no return value?
+// Maybe it'll be alright if it's documented properly?
+await initializeCrawledValues();
 console.log(seasons);
