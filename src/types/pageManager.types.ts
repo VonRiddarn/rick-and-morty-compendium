@@ -1,4 +1,4 @@
-import { HeaderType } from "../enums/header.enums";
+import { HeaderType } from "../components/layout/header/header.enums";
 
 export type Page = {
 	uid: string,

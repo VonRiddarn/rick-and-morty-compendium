@@ -1,4 +1,4 @@
-import { HeaderType } from "../../../enums/header.enums";
+import { HeaderType } from "../../../components/layout/header/header.enums";
 import api from "../../../services/api";
 import { Character, Entity, SearchResult } from "../../../types/api.types";
 import { Page } from "../../../types/pageManager.types";

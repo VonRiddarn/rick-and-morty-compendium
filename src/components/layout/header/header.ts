@@ -1,4 +1,4 @@
-import { HeaderType } from "../../../enums/header.enums";
+import { HeaderType } from "./header.enums";
 import { pageManager } from "../../../utils/page-manager/pageManager";
 import pageRepository from "../../../utils/page-manager/pageRepository";
 import "./header.scss";

@@ -1,5 +1,5 @@
 import { favoritesButton } from "../../../components/layout/header/header";
-import { HeaderType } from "../../../enums/header.enums";
+import { HeaderType } from "../../../components/layout/header/header.enums";
 import { Page } from "../../../types/pageManager.types";
 
 export const favoritesPage: Page = {
