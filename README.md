@@ -2,6 +2,70 @@
 A streamlined way to look through the public rick and morty api!  
 We got **buttons** and **pictures**! What more could you want?
 
+## Requirements
+
+**BASE!**  
+
+**Github Readme**  
+Should contain:
+* How to download
+* How to install and compile
+* How to run
+* Folder structure
+* API and endpoints / URLs
+* Technologies, concepåts and frameworks
+* LinkedIn-link
+
+**Gitignore**  
+
+**Strict TSConfig**  
+Example:  
+```
+"strict": true,
+"noImplicitAny": true,
+"strictFunctionTypes": true,
+"noUnusedLocals": true,
+"noUnusedParameters": true,   
+"noImplicitReturns": true,
+```
+
+**Sass**  
+Need to show proficiency in:  
+* Variables
+* Nesting
+* mixin, include
+* use, forward
+* DRY
+
+**Responsive design that works on Desktop and Mobile**  
+
+**AJAX**  
+
+**Use 3 endpoints**  
+* 1 must be concated.
+* Returned array that is shown on the UI
+* Returned object that is shown on the UI
+
+**EXTRA CREDIT!**  
+Generally high code standards.  
+1-3 extra functionalities.  
+Your project feels intentional and well structured.  
+Error handling and responsive wait (eg loading).  
+
+**Example extra functionality**  
+* Favorites
+* Saved searches
+* Grade
+* Comment or tag
+* Archive
+* Visit counter
+
+**PRESENTATION**  
+You present in fron of the class.  
+Demonstrate the product; Show and explain all functionality.  
+Extra credit: Show that you've achieved extra credit functionality.  
+
+
 ## Cached element nodes
 We're creating 2 element-nodes at site initialization:  
 * Main
