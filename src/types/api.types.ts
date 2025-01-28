@@ -9,8 +9,8 @@ export type Character = {
 	species: string;
 	type: string;
 	gender: 'Female' | 'Male' | 'Genderless' | 'unknown';
-	origin: Place;
-	location: Place;
+	origin: Location;
+	location: Location;
 	image: string;
 	episode: string[];
 	url: string;
@@ -29,7 +29,7 @@ export type Episode = {
 };
 
 // https://rickandmortyapi.com/documentation/#location-schema
-export type Place = {
+export type Location = {
 	id: number;
 	name: string;
 	type: string;
@@ -51,7 +51,7 @@ export type SearchResult<T> = {
 
 // ----- ----- CUSTOM ----- -----
 
-export type Entity = Character | Place | Episode;
+export type Entity = Character | Location | Episode;
 
 export type Season = {
 	name: string;

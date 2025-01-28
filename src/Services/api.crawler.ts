@@ -1,7 +1,7 @@
 // TODO: Export dynamic list of properties that can be used in the filter modal dropdowns.
 // IT IS VERY IMPORTANT THAT WE ONLY RUN THIS AT INITIALIZATION - We do NOT want to get rate limited!
 
-import { Episode, EpisodeReference, Season } from "../types/api.types";
+import { Episode, EpisodeReference, Location, Season } from "../types/api.types";
 import api from "./api";
 
 export const seasons: { [key: string]: Season } = {};
@@ -66,17 +66,31 @@ const parseEpisodes = (episodes:Episode[]):EpisodeReference[] => {
 	return episodes.map(e => ({ name: e.name, signature: e.episode, url: e.url}));
 }
 
-// TODO: Add crawl for 
-/*
-Location
-		Type
-		Dimension
-		Note: All types and dimensions can be collected in 7 calls.
-*/
+// --------------------------- LOCATION TYPES  ---------------------------
 
-const types:string[] = [];
-const dimensions:string[] = [];
+
+export const types:{ [key: string]: number } = {};
 
 const initializeLocations = async () => {
 
+	let currentSearch = await api.getResults.fromPage<Location>(1, "location");
+
+	while(currentSearch !== undefined)
+	{
+		currentSearch.results.forEach((e) => {
+			let type = e.type;
+			if (!types[type]) {
+				types[type] = 0;
+			}
+		
+			types[type]++;
+		});
+
+		let nextSearch = currentSearch.info.next;
+		
+		if(nextSearch === null)
+			break;
+		
+		currentSearch = await api.getResults.fromUrl<Location>(nextSearch);
+	}
 }

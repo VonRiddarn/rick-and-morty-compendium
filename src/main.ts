@@ -1,5 +1,5 @@
 import { initializeHeader } from "./components/layout/header/header";
-import { initializeCrawledValues, seasons } from "./services/api.crawler";
+import { initializeCrawledValues, seasons, types } from "./services/api.crawler";
 import "./style.scss";
 import { pageManager } from "./utils/page-manager/pageManager";
 import pageRepository from "./utils/page-manager/pageRepository";
@@ -20,3 +20,4 @@ pageManager.switchPage(pageRepository.pages.main);
 // Maybe it'll be alright if it's documented properly?
 await initializeCrawledValues();
 console.log(seasons);
+console.log(types);
