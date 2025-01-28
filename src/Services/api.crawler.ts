@@ -68,7 +68,9 @@ const parseEpisodes = (episodes:Episode[]):EpisodeReference[] => {
 
 // --------------------------- LOCATION TYPES  ---------------------------
 
-
+// NOTE:
+// When using this to search, make sure to only filter using name if the items per type are above 20.
+// Anything below will just show all search results on the page. Grey out name for clarity.
 export const types:{ [key: string]: number } = {};
 
 const initializeLocations = async () => {
