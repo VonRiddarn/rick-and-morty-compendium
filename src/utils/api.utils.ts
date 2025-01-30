@@ -3,7 +3,7 @@ export const parseSignature = (signature: string): {season:number, episode:numbe
 	const match = signature.match(/S(\d+)E(\d+)/);
 	
 	if (!match) 
-		return -1;
+		return {season:-1, episode:-1};
 
 	const seasonNumber = parseInt(match[1], 10);
 	const episodeNumber = parseInt(match[2], 10);
