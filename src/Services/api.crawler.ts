@@ -2,6 +2,7 @@
 // IT IS VERY IMPORTANT THAT WE ONLY RUN THIS AT INITIALIZATION - We do NOT want to get rate limited!
 
 import { Episode, EpisodeReference, Location, Season } from "../types/api.types";
+import { parseSignature } from "../utils/api.utils";
 import api from "./api";
 
 export const seasons: { [key: string]: Season } = {};
@@ -15,7 +16,7 @@ export const initializeCrawledValues = async () => {
 // Nothing here is done yet, everything is subject for change!
 const initializeSeasons = async () => {
 	const episodes = await generateEpisodeReferences();
-	episodes.forEach((e) => addEpisodeToSeason(parseSignature(e, "season"), e));
+	episodes.forEach((e) => addEpisodeToSeason(parseSignature(e.signature).season, e));
 }
 
 const addEpisodeToSeason = (season:number, episode:EpisodeReference) => {
@@ -28,19 +29,6 @@ const addEpisodeToSeason = (season:number, episode:EpisodeReference) => {
 	}
 
 	seasons[season].episodes.push(episode);
-}
-
-const parseSignature = (episodeReference: EpisodeReference, extract:"season" | "episode"): number => {
-	
-	const match = episodeReference.signature.match(/S(\d+)E(\d+)/);
-	
-	if (!match) 
-		return -1;
-
-	const seasonNumber = parseInt(match[1], 10);
-	const episodeNumber = parseInt(match[2], 10);
-
-	return extract === "season" ? seasonNumber : episodeNumber;
 }
 
 const generateEpisodeReferences = async ():Promise<EpisodeReference[]> => {
