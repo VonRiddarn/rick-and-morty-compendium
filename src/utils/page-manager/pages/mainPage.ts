@@ -1,7 +1,8 @@
 import { HeaderType } from "../../../components/layout/header/header.enums";
 import api from "../../../services/api";
-import { Character, Entity, SearchResult } from "../../../types/api.types";
+import { Character, Location, Entity, SearchResult, Episode } from "../../../types/api.types";
 import { Page } from "../../../types/pageManager.types";
+import { cardRenderer } from "../../renderer";
 
 let currentSearch: SearchResult<Entity> | undefined = undefined;
 
@@ -32,8 +33,8 @@ a.addEventListener("click", () => {
 
 const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
-	currentSearch = await api.getResults.fromPage<Character>(1, "character");
-	currentSearch?.results.forEach((e) => mainPage.node.appendChild(document.createElement("p")).innerHTML = e.name);
+	currentSearch = await api.getResults.fromPage<Location>(1, "episode");
+	currentSearch?.results.forEach((e) => mainPage.node.appendChild(cardRenderer.episodeCard(e as Episode)));
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 } 
 
@@ -46,6 +47,6 @@ const addMorePeople = async () => {
 		return;
 
 	currentSearch = await api.getResults.fromUrl<Character>(nextPage);
-	currentSearch?.results.forEach((e) => mainPage.node.appendChild(document.createElement("p")).innerHTML = e.name);
+	//currentSearch?.results.forEach((e) => mainPage.node.appendChild(createCardElement(e as Character)));
 	console.log(currentSearch);
 }

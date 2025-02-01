@@ -9,8 +9,8 @@ export type Character = {
 	species: string;
 	type: string;
 	gender: 'Female' | 'Male' | 'Genderless' | 'unknown';
-	origin: Location;
-	location: Location;
+	origin: LocationReference;
+	location: LocationReference;
 	image: string;
 	episode: string[];
 	url: string;
@@ -52,6 +52,11 @@ export type SearchResult<T> = {
 // ----- ----- CUSTOM ----- -----
 
 export type Entity = Character | Location | Episode;
+
+export type LocationReference = {
+	name: string;
+	url: string;
+}
 
 export type Season = {
 	name: string;
