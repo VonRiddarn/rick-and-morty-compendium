@@ -20,11 +20,26 @@
 }
 
 body {
-	display: flex;
 	flex-direction: column;
 	place-items: center;
 }
 
 main {
 	margin-top: 3rem;
+	width: 100%;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	background-color: blanchedalmond;
+	width: 200px;
+	padding: 0.5rem;
+	margin: 1rem;
+
+	.signature {
+		background-color: aqua;
+		height: 50%;
+	}
+
 }

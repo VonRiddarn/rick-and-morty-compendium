@@ -5,9 +5,11 @@ export const cardRenderer = {
 	characterCard: (character:Character) => {
 		const el = document.createElement("article");
 		el.classList.add("card");
+		el.appendChild(document.createElement("p")).innerHTML = `${character.status}`;
 		el.appendChild(document.createElement("img")).src = character.image;
 		el.appendChild(document.createElement("h2")).innerHTML = character.name;
-		el.appendChild(document.createElement("p")).innerHTML = character.location.name;
+		el.appendChild(document.createElement("p")).innerHTML = `📍${character.location.name}`;
+		el.appendChild(document.createElement("p")).innerHTML = `🏠${character.origin.name}`;
 		
 		return el;
 	},
