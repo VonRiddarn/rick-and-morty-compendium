@@ -33,8 +33,8 @@ a.addEventListener("click", () => {
 
 const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
-	currentSearch = await api.getResults.fromPage<Location>(1, "episode");
-	currentSearch?.results.forEach((e) => mainPage.node.appendChild(cardRenderer.episodeCard(e as Episode)));
+	currentSearch = await api.getResults.fromPage<Location>(1, "character");
+	currentSearch?.results.forEach((e) => mainPage.node.appendChild(cardRenderer.characterCard(e as Character)));
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 } 
 
@@ -47,6 +47,6 @@ const addMorePeople = async () => {
 		return;
 
 	currentSearch = await api.getResults.fromUrl<Character>(nextPage);
-	//currentSearch?.results.forEach((e) => mainPage.node.appendChild(createCardElement(e as Character)));
+	currentSearch?.results.forEach((e) => mainPage.node.appendChild(cardRenderer.characterCard(e as Character)));
 	console.log(currentSearch);
 }
