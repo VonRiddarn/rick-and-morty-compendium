@@ -4,6 +4,7 @@ import { parseSignature } from "./api.utils";
 export const cardRenderer = {
 	characterCard: (character:Character) => {
 		const el = document.createElement("article");
+		el.classList.add("card");
 		el.appendChild(document.createElement("img")).src = character.image;
 		el.appendChild(document.createElement("h2")).innerHTML = character.name;
 		el.appendChild(document.createElement("p")).innerHTML = character.location.name;
@@ -12,6 +13,7 @@ export const cardRenderer = {
 	},
 	locationCard: (location:Location) => {
 		const el = document.createElement("article");
+		el.classList.add("card");
 		//e.appendChild(document.createElement("img")).src = LOCATION TYPE IMAGES;
 		el.appendChild(document.createElement("h2")).innerHTML = location.name;
 		el.appendChild(document.createElement("p")).innerHTML = location.type;
@@ -24,6 +26,7 @@ export const cardRenderer = {
 
 		const {season:s, episode:e} = parseSignature(episode.episode);
 		const el = document.createElement("article");
+		el.classList.add("card");
 
 		const signature = el.appendChild(document.createElement("p"));
 		signature.classList.add("signature");
