@@ -1,7 +1,7 @@
 @use "/src/sass/base/reset";
 @use "/src/sass/utils/variables";
 
-.modal {
+#modal-root {
 	position: fixed;
 	display: flex;
 	justify-content: center;

@@ -18,7 +18,7 @@ const updateModal = (content?: HTMLElement) => {
 	if(currentRoot === null)
 	{
 		currentRoot = document.createElement("div");
-		currentRoot.classList.add("modal");
+		currentRoot.id = "modal-root";
 
 		currentRoot.addEventListener('click', (event) => {
 			if(event.target === currentRoot) 
@@ -31,6 +31,9 @@ const updateModal = (content?: HTMLElement) => {
 		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = "X";
 		
 		currentModal.contentNode = currentModal.modalNode.appendChild(document.createElement("div"));
+		
+		currentModal.modalNode.id = "modal-container";
+		currentModal.contentNode.id = "modal-content";
 
 		document.querySelector("body")?.appendChild(currentRoot) as HTMLElement;
 	}
@@ -39,18 +42,18 @@ const updateModal = (content?: HTMLElement) => {
 		currentRoot.classList.remove("force-hidden");
 	}
 
-	if(content)
+	if(content && currentModal.contentNode)
 	{
-		currentModal.contentNode?.replaceWith(content);
-		currentModal.contentNode = content;
+		currentModal.contentNode.innerHTML = ""
+		currentModal.contentNode.appendChild(content);
 	}
 }
 
 const killModal = (modalRoot:HTMLElement) => {
 	modalRoot.classList.add("force-hidden");
 
-	// Clear content when closing modal
-	currentModal.contentNode!.innerHTML = "";
+	if(currentModal.contentNode)
+		currentModal.contentNode.innerHTML = "";
 }
 
 export const openFilterModal = () => {
@@ -82,7 +85,7 @@ export const openEntityModal = (entity:Entity) => {
 const getErrorModal = (msg:string) => {
 
 	const container = document.createElement("div")
-	container.appendChild(document.createElement("p")).innerHTML = msg;
+	container.appendChild(document.createElement("p")).textContent = msg;
 
 	return container;
 }
@@ -90,7 +93,7 @@ const getErrorModal = (msg:string) => {
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("div");
 
-	container.appendChild(document.createElement("h2")).innerHTML = character.name;
+	container.appendChild(document.createElement("h2")).textContent = character.name;
 
 	return container;
 }
