@@ -11,8 +11,6 @@ export const favoritesPage: Page = {
 	node: document.createElement("main"),
 	enter: function (): void {
 		console.log("++ Fav");
-		favoritesButton.setAttribute("style", "color: red;");
-		favoritesButton.classList.add("disabled");
 	},
 	exit: function (): void {
 		console.log("-- Fav");
