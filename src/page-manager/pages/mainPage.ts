@@ -38,6 +38,7 @@ const init = async () => {
 	currentSearch?.results.forEach((e) => {
 		const cc = mainPage.node.appendChild(cardRenderer.characterCard(e as Character));
 		cc.classList.add("unselectable");
+		cc.tabIndex = 0;
 		cc.addEventListener('click', () => {
 			document.querySelector("body")?.appendChild(createCardModal(e));
 		});
