@@ -1,5 +1,6 @@
 @use "/src/sass/base/reset";
 @use "/src/sass/base/force-hidden";
+@use "/src/sass/base/unselectable";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -24,8 +25,14 @@ body {
 	place-items: center;
 }
 
+header {
+	position: fixed;
+	top: 0;
+	max-height: 8rem;
+}
+
 main {
-	margin-top: 3rem;
+	margin-top: calc(10rem - 1.2vw);
 	width: 100%;
 }
 
@@ -36,6 +43,8 @@ main {
 	width: 200px;
 	padding: 0.5rem;
 	margin: 1rem;
+
+	cursor: pointer;
 
 	.signature {
 		background-color: aqua;

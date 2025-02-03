@@ -1,9 +1,9 @@
-import { HeaderType } from "../../../components/layout/header/header.enums";
-import { createCardModal } from "../../../components/modal/modal";
-import api from "../../../services/api";
-import { Character, Location, Entity, SearchResult, Episode } from "../../../types/api.types";
-import { Page } from "../../../types/pageManager.types";
-import { cardRenderer } from "../../renderer";
+import { HeaderType } from "../../components/layout/header/header.enums";
+import { createCardModal } from "../../components/modal/modal";
+import api from "../../services/api";
+import { Character, Location, Entity, SearchResult, Episode } from "../../types/api.types";
+import { Page } from "../../types/pageManager.types";
+import { cardRenderer } from "../../utils/renderer";
 
 let currentSearch: SearchResult<Entity> | undefined = undefined;
 
@@ -34,7 +34,7 @@ a.addEventListener("click", () => {
 
 const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
-	currentSearch = await api.getResults.fromPage<Location>(1, "character");
+	currentSearch = await api.getResults.fromPage<Character>(1, "character");
 	currentSearch?.results.forEach((e) => {
 		const cc = mainPage.node.appendChild(cardRenderer.characterCard(e as Character));
 		cc.addEventListener('click', () => {

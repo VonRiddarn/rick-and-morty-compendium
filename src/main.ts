@@ -1,8 +1,8 @@
 import { initializeHeader } from "./components/layout/header/header";
 import { initializeCrawledValues, seasons, types } from "./services/api.crawler";
 import "./style.scss";
-import { pageManager } from "./utils/page-manager/pageManager";
-import pageRepository from "./utils/page-manager/pageRepository";
+import { pageManager } from "./page-manager/pageManager";
+import pageRepository from "./page-manager/pageRepository";
 
 
 // TODO: Prebuild page nodes and load node "main" from pageManager

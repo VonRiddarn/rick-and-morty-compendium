@@ -1,5 +1,5 @@
-import { header } from "../../components/layout/header/header";
-import { Page } from "../../types/pageManager.types";
+import { header } from "../components/layout/header/header";
+import { Page } from "../types/pageManager.types";
 
 let currentPage: Page | undefined = undefined;
 
