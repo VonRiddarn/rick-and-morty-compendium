@@ -87,6 +87,7 @@ export const openEntityModal = (entity:Entity) => {
 
 const generateModalHeader = (entity: Entity) => {
 	const span = document.createElement("span");
+	span.id = "modal-header";
 	const favoriteButton = span.appendChild(document.createElement("button"));
 	const wikiButton = span.appendChild(document.createElement("button"));
 	span.appendChild(document.createElement("h2")).textContent = entity.name;
@@ -103,14 +104,15 @@ const generateModalHeader = (entity: Entity) => {
 
 const getErrorModal = (msg:string) => {
 
-	const container = document.createElement("div")
+	const container = document.createElement("section")
+	container.appendChild(document.createElement("h2")).textContent = "ERROR";
 	container.appendChild(document.createElement("p")).textContent = msg;
 
 	return container;
 }
 
 const getCharacterModal = (character:Character) => {
-	const container = document.createElement("div");
+	const container = document.createElement("section");
 	container.appendChild(generateModalHeader(character));
 
 	return container;
