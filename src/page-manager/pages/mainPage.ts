@@ -1,5 +1,5 @@
 import { HeaderType } from "../../components/layout/header/header.enums";
-import { createCardModal } from "../../components/modal/modal";
+import { openEntityModal } from "../../components/modal/modal";
 import api from "../../services/api";
 import { Character, Location, Entity, SearchResult, Episode } from "../../types/api.types";
 import { Page } from "../../types/pageManager.types";
@@ -40,7 +40,7 @@ const init = async () => {
 		cc.classList.add("unselectable");
 		cc.tabIndex = 0;
 		cc.addEventListener('click', () => {
-			document.querySelector("body")?.appendChild(createCardModal(e));
+			openEntityModal(e);
 		});
 	});
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");

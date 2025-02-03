@@ -2,31 +2,38 @@ import { Entity } from "../../types/api.types";
 import { parseUrl } from "../../utils/api.utils";
 import "./modal.scss";
 
+let currentModal: HTMLElement | null = null; 
 
-const createModal = (content?: HTMLElement) => {
+const updateModal = (content?: HTMLElement) => {
 	const root = document.createElement("div");
 	root.classList.add("modal");
 
 	const modal = root.appendChild(document.createElement("div"));
 	
-	root.addEventListener('click', (event) => {if(event.target === root) closeModal(root)});
-	
-	// Cool way of making a one liner - use the closeModal method as an AND conditional to make it run
-	const escClose = (event: KeyboardEvent) => event.key === "Escape" && closeModal(root);
+	root.addEventListener('click', (event) => {
+		if(event.target === root) 
+			killModal(root)
+	});
 
-	const closeModal = (modalRoot:HTMLElement) => {
+	const killModal = (modalRoot:HTMLElement) => {
+		currentModal = null;
 		modalRoot.remove();
-		document.removeEventListener('keydown', escClose);
 	}
 
 	if(content)
 		modal.appendChild(content);
 
-	return root;
+	if(currentModal !== null)
+		currentModal = root;
+	else
+		currentModal = document.querySelector("body")?.appendChild(root) as HTMLElement;
 }
 
+export const openFilterModal = () => {
+	updateModal(getErrorModal("FILTER"));
+}
 
-export const createCardModal = (entity:Entity) => {
+export const openEntityModal = (entity:Entity) => {
 	const type = parseUrl(entity.url);
 	let contentMethod = getErrorModal("ERROR: Couldn't create modal from type!");
 
@@ -45,7 +52,7 @@ export const createCardModal = (entity:Entity) => {
 		break;
 	}
 
-	return createModal(contentMethod);
+	updateModal(contentMethod);
 }
 
 const getErrorModal = (msg:string) => {

@@ -2,6 +2,7 @@ import { HeaderType } from "./header.enums";
 import { pageManager } from "../../../page-manager/pageManager";
 import pageRepository from "../../../page-manager/pageRepository";
 import "./header.scss";
+import { openFilterModal } from "../../modal/modal";
 
 // Header navigational buttons
 export const backButton = document.getElementById("header-btn-back") as HTMLElement;
@@ -17,7 +18,7 @@ export const initializeHeader = () => {
 		});
 	
 		filterButton?.addEventListener("click", () => {
-			
+			openFilterModal();
 		});
 	
 		favoritesButton?.addEventListener("click", () => {
