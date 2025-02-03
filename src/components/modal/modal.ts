@@ -3,7 +3,7 @@ import { parseUrl } from "../../utils/api.utils";
 import "./modal.scss";
 
 
-export const createModal = (content?: HTMLElement) => {
+const createModal = (content?: HTMLElement) => {
 	const root = document.createElement("div");
 	root.classList.add("modal");
 
@@ -26,27 +26,26 @@ export const createModal = (content?: HTMLElement) => {
 }
 
 
-export const modalContent = (entity:Entity) => {
+export const createCardModal = (entity:Entity) => {
 	const type = parseUrl(entity.url);
+	let contentMethod = getErrorModal("ERROR: Couldn't create modal from type!");
 
 	switch(type)
 	{
 		case "character":
-		return getErrorModal(entity.name);
+		contentMethod = getErrorModal(entity.name);
 		break;
 
 		case "location":
-		return getErrorModal("Location");
+		contentMethod = getErrorModal(entity.name);
 		break;
 
 		case "episode":
-		return getErrorModal("Episode");
-		break;
-
-		default:
-		return getErrorModal("ERROR: Couldn't create modal from type!");
+		contentMethod = getErrorModal(entity.name);
 		break;
 	}
+
+	return createModal(contentMethod);
 }
 
 const getErrorModal = (msg:string) => {
