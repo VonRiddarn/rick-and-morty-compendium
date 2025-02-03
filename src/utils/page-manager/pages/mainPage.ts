@@ -1,4 +1,5 @@
 import { HeaderType } from "../../../components/layout/header/header.enums";
+import { createModal } from "../../../components/modal/modal";
 import api from "../../../services/api";
 import { Character, Location, Entity, SearchResult, Episode } from "../../../types/api.types";
 import { Page } from "../../../types/pageManager.types";
@@ -34,7 +35,12 @@ a.addEventListener("click", () => {
 const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
 	currentSearch = await api.getResults.fromPage<Location>(1, "character");
-	currentSearch?.results.forEach((e) => mainPage.node.appendChild(cardRenderer.characterCard(e as Character)));
+	currentSearch?.results.forEach((e) => {
+		const cc = mainPage.node.appendChild(cardRenderer.characterCard(e as Character));
+		cc.addEventListener('click', () => {
+			document.querySelector("body")?.appendChild(createModal());
+		});
+	});
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 } 
 
