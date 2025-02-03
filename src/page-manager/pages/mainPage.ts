@@ -37,6 +37,7 @@ const init = async () => {
 	currentSearch = await api.getResults.fromPage<Character>(1, "character");
 	currentSearch?.results.forEach((e) => {
 		const cc = mainPage.node.appendChild(cardRenderer.characterCard(e as Character));
+		cc.classList.add("unselectable");
 		cc.addEventListener('click', () => {
 			document.querySelector("body")?.appendChild(createCardModal(e));
 		});
