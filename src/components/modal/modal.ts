@@ -1,4 +1,4 @@
-import { Character, Entity } from "../../types/api.types";
+import { Character, Entity, Episode, Location } from "../../types/api.types";
 import { parseUrl } from "../../utils/api.utils";
 import "./modal.scss";
 
@@ -74,11 +74,11 @@ export const openEntityModal = (entity:Entity) => {
 		break;
 
 		case "location":
-		contentMethod = getErrorModal(entity.name);
+		contentMethod = getLocationModal(entity as Location);
 		break;
 
 		case "episode":
-		contentMethod = getErrorModal(entity.name);
+		contentMethod = getEpisodenModal(entity as Episode);
 		break;
 	}
 
@@ -114,6 +114,20 @@ const getErrorModal = (msg:string) => {
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader(character));
+
+	return container;
+}
+
+const getLocationModal = (location:Location) => {
+	const container = document.createElement("section");
+	container.appendChild(generateModalHeader(location));
+
+	return container;
+}
+
+const getEpisodenModal = (episode:Episode) => {
+	const container = document.createElement("section");
+	container.appendChild(generateModalHeader(episode));
 
 	return container;
 }
