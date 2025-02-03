@@ -59,6 +59,6 @@ const addMorePeople = async () => {
 		return;
 
 	currentSearch = await api.getResults.fromUrl<Character>(nextPage);
-	currentSearch?.results.forEach((e) => mainPage.node.appendChild(cardRenderer.characterCard(e as Character)));
+	currentSearch?.results.forEach((e) => mainPage.node.appendChild(renderCard(e) as HTMLElement));
 	console.log(currentSearch);
 }
