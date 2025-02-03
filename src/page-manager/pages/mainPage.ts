@@ -43,7 +43,11 @@ const loadEntitiesFromFilter = async (endpoint: Endpoint, queries: Query[] = [])
 		mainPage.node.appendChild(renderCard(e) as HTMLElement);
 	});
 
-	mainPage.node.appendChild
+	const prevButton = mainPage.node.appendChild(document.createElement("button"));
+	const nextButton = mainPage.node.appendChild(document.createElement("button"));
+
+	prevButton.textContent = "<";
+	nextButton.textContent = ">";
 
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 }
