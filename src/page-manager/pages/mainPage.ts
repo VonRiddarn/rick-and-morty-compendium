@@ -1,3 +1,4 @@
+import { renderCard } from "../../components/entityCard/entityCard";
 import { HeaderType } from "../../components/layout/header/header.enums";
 import { openEntityModal } from "../../components/modal/modal";
 import api from "../../services/api";
@@ -36,12 +37,15 @@ const init = async () => {
 	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
 	currentSearch = await api.getResults.fromPage<Character>(1, "character");
 	currentSearch?.results.forEach((e) => {
+		/*
 		const cc = mainPage.node.appendChild(cardRenderer.characterCard(e as Character));
 		cc.classList.add("unselectable");
 		cc.tabIndex = 0;
 		cc.addEventListener('click', () => {
 			openEntityModal(e);
-		});
+		});*/
+		mainPage.node.appendChild(renderCard(e) as HTMLElement);
+		
 	});
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 } 

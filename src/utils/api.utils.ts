@@ -1,3 +1,5 @@
+import { Endpoint, Entity } from "../types/api.types";
+
 export const parseSignature = (signature: string): {season:number, episode:number} => {
 	
 	const match = signature.match(/S(\d+)E(\d+)/);
@@ -15,3 +17,11 @@ export const parseUrl = (url: string): string => {
 	const parts = new URL(url).pathname.split("/").filter(Boolean);
 	return parts.length > 1 ? parts[1] : "";
 };
+
+
+export const getEndpointName = (entity:Entity):Endpoint | null  => {
+
+	const type = parseUrl(entity.url);
+
+	return type as Endpoint | null;
+}

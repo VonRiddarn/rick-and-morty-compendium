@@ -35,20 +35,3 @@ main {
 	margin-top: calc(10rem - 1.2vw);
 	width: 100%;
 }
-
-.card {
-	display: flex;
-	flex-direction: column;
-	background-color: blanchedalmond;
-	width: 200px;
-	padding: 0.5rem;
-	margin: 1rem;
-
-	cursor: pointer;
-
-	.signature {
-		background-color: aqua;
-		height: 50%;
-	}
-
-}
