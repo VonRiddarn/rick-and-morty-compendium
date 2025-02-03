@@ -1,10 +1,13 @@
 import { renderCard } from "../../components/entityCard/entityCard";
 import { HeaderType } from "../../components/layout/header/header.enums";
 import api from "../../services/api";
-import { Character, Location, Entity, SearchResult, Episode } from "../../types/api.types";
+import { Character, Location, Entity, SearchResult, Episode, Endpoint, Query } from "../../types/api.types";
 import { Page } from "../../types/pageManager.types";
 
 let currentSearch: SearchResult<Entity> | undefined = undefined;
+
+let prevPage: string = "";
+let nextPage: string = "";
 
 export const mainPage: Page = {
 	uid: "main",
@@ -16,7 +19,7 @@ export const mainPage: Page = {
 	enter: function (): void {
 		// Entered for first time, or after an error.
 		if(currentSearch === undefined)
-			init();
+			loadEntitiesFromFilter("character");
 
 		console.log("++ Main");
 	},
@@ -27,18 +30,27 @@ export const mainPage: Page = {
 
 let a = mainPage.node.appendChild(document.createElement("button"));
 a.innerHTML = "MORE PEOPLE!";
-a.addEventListener("click", () => {
-	addMorePeople();
-});
 
-const init = async () => {
-	// TODO: Use the regular search method for this later and simply call it by default if currentSearch is undefined
-	currentSearch = await api.getResults.fromPage<Entity>(1, "character");
+const loadEntitiesFromFilter = async (endpoint: Endpoint, queries: Query[] = []) => {
+
+	// We will use main:empty::after OR main:not(:has(*))::after
+	// To apply a spinner when main has no content. 
+	mainPage.node.innerHTML = "";
+
+	currentSearch = await api.getResults.fromPage<Entity>(1, endpoint, queries);
+
 	currentSearch?.results.forEach((e) => {
 		mainPage.node.appendChild(renderCard(e) as HTMLElement);
 	});
+
+	mainPage.node.appendChild
+
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
-} 
+}
+
+const loadEntitiesFromPagnation = async (url: string) => {
+	
+}
 
 const addMorePeople = async () => {
 	if(currentSearch === undefined)
