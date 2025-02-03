@@ -23,3 +23,20 @@
 		border-radius: variables.$radius-rounded-subtle;
 	}
 }
+
+#modal-content {
+	padding: 1rem;
+}
+
+#modal-header {
+
+	display: flex;
+	width: 100%;
+
+	button {
+		width: 2rem
+	}
+	* {
+		margin: 0 1%;
+	}
+}
