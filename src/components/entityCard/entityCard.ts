@@ -1,5 +1,5 @@
-import { Character, Entity } from "../../types/api.types";
-import { getEndpointName, parseUrl } from "../../utils/api.utils";
+import { Character, Entity, Episode, Location } from "../../types/api.types";
+import { getEndpointName, parseSignature, parseUrl } from "../../utils/api.utils";
 import { openEntityModal } from "../modal/modal";
 import "./entityCard.scss";
 
@@ -14,13 +14,16 @@ export const renderCard = (entity:Entity) => {
 		break;
 
 		case "location":
-		return;
+		card = generateLocationCard(entity as Location);
+		break;
 
 		case "episode":
-		return;
+		card = generateEpisodeCard(entity as Episode);
+		break;
 
 		default:
-		return;
+		console.error("COULD NOT FIND ENDPOINT OF CARD!");
+		return null;
 	}
 	
 	card.classList.add("entity-card");
@@ -40,6 +43,33 @@ const generateCharacterCard = (character: Character) => {
 	el.appendChild(document.createElement("h2")).innerHTML = character.name;
 	el.appendChild(document.createElement("p")).innerHTML = `📍${character.location.name}`;
 	el.appendChild(document.createElement("p")).innerHTML = `🏠${character.origin.name}`;
+	
+	return el;
+}
+
+const generateLocationCard = (location:Location) => {
+	const el = document.createElement("article");
+	//e.appendChild(document.createElement("img")).src = LOCATION TYPE IMAGES;
+	el.appendChild(document.createElement("h2")).innerHTML = location.name;
+	el.appendChild(document.createElement("p")).innerHTML = location.type;
+	el.appendChild(document.createElement("p")).innerHTML = location.dimension;
+	el.appendChild(document.createElement("p")).innerHTML = `${location.residents.length} inhabitants`;
+	
+	return el;
+}
+
+const generateEpisodeCard = (episode: Episode) => {
+
+	const {season:s, episode:e} = parseSignature(episode.episode);
+	const el = document.createElement("article");
+
+	const signature = el.appendChild(document.createElement("p"));
+	signature.classList.add("signature");
+	signature.innerHTML = `S${s}E${e}`;
+
+	el.appendChild(document.createElement("h2")).innerHTML = episode.name;
+	el.appendChild(document.createElement("p")).innerHTML = episode.air_date;
+	el.appendChild(document.createElement("p")).innerHTML = `${episode.characters.length} actors`;
 	
 	return el;
 }
