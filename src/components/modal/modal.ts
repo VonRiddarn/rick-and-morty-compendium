@@ -112,7 +112,6 @@ const getErrorModal = (msg:string) => {
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("div");
 	container.appendChild(generateModalHeader(character));
-	container.appendChild(document.createElement("h2")).textContent = character.name;
 
 	return container;
 }
