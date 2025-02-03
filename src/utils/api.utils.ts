@@ -10,3 +10,8 @@ export const parseSignature = (signature: string): {season:number, episode:numbe
 
 	return {season: seasonNumber, episode: episodeNumber};
 }
+
+export const parseUrl = (url: string): string => {
+	const parts = new URL(url).pathname.split("/").filter(Boolean);
+	return parts.length > 1 ? parts[1] : "";
+};
