@@ -6,9 +6,6 @@ import { Page } from "../../types/pageManager.types";
 
 let currentSearch: SearchResult<Entity> | undefined = undefined;
 
-let prevPage: string = "";
-let nextPage: string = "";
-
 export const mainPage: Page = {
 	uid: "main",
 	header: {
@@ -31,29 +28,58 @@ export const mainPage: Page = {
 let a = mainPage.node.appendChild(document.createElement("button"));
 a.innerHTML = "MORE PEOPLE!";
 
-const loadEntitiesFromFilter = async (endpoint: Endpoint, queries: Query[] = []) => {
 
-	// We will use main:empty::after OR main:not(:has(*))::after
-	// To apply a spinner when main has no content. 
-	mainPage.node.innerHTML = "";
+const loadEntities = async () => {
 
-	currentSearch = await api.getResults.fromPage<Entity>(1, endpoint, queries);
+	if(!currentSearch)
+		return;
 
-	currentSearch?.results.forEach((e) => {
+	currentSearch.results.forEach((e) => {
 		mainPage.node.appendChild(renderCard(e) as HTMLElement);
 	});
 
-	const prevButton = mainPage.node.appendChild(document.createElement("button"));
-	const nextButton = mainPage.node.appendChild(document.createElement("button"));
+	const pagnation = mainPage.node.appendChild(document.createElement("span"));
+	pagnation.id = "pagnation";
+	const prevButton = pagnation.appendChild(document.createElement("button"));
+	const nextButton = pagnation.appendChild(document.createElement("button"));
 
 	prevButton.textContent = "<";
 	nextButton.textContent = ">";
 
+	nextButton.addEventListener('click', () => {
+		// Typescrips is wucky and needs this conditional
+		if(!currentSearch)
+			return;
+
+		loadEntitiesFromPagnation(currentSearch.info.next);
+	});
+
+	prevButton.addEventListener('click', () => {
+		// Typescrips is wucky and needs this conditional
+		if(!currentSearch)
+			return;
+
+		loadEntitiesFromPagnation(currentSearch.info.prev);
+	});
+
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 }
 
-const loadEntitiesFromPagnation = async (url: string) => {
-	
+
+// We will use main:empty::after OR main:not(:has(*))::after
+// To apply a spinner when main has no content. 
+const loadEntitiesFromFilter = async (endpoint: Endpoint, queries: Query[] = []) => {
+	mainPage.node.innerHTML = "";
+	currentSearch = await api.getResults.fromPage<Entity>(1, endpoint, queries);
+	loadEntities();
+}
+
+const loadEntitiesFromPagnation = async (url: string | null) => {
+	if(url == null)
+		return;
+	mainPage.node.innerHTML = "";
+	currentSearch = await api.getResults.fromUrl<Entity>(url);
+	loadEntities();
 }
 
 const addMorePeople = async () => {
