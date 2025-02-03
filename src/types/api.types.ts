@@ -1,10 +1,14 @@
 
 // ----- ----- ENTITIES ----- -----
 
-// https://rickandmortyapi.com/documentation/#character-schema
-export type Character = {
+export type Entity = {
 	id: number;
 	name: string;
+	url: string;
+}
+
+// https://rickandmortyapi.com/documentation/#character-schema
+export type Character = Entity & {
 	status: 'Alive' | 'Dead' | 'unknown';
 	species: string;
 	type: string;
@@ -13,29 +17,22 @@ export type Character = {
 	location: LocationReference;
 	image: string;
 	episode: string[];
-	url: string;
 	created: string;
 };
 
 // https://rickandmortyapi.com/documentation/#episode-schema
-export type Episode = {
-	id: number;
-	name: string;
+export type Episode = Entity & {
 	air_date: string;
 	episode: string;
 	characters: string[];
-	url: string;
 	created: string;
 };
 
 // https://rickandmortyapi.com/documentation/#location-schema
-export type Location = {
-	id: number;
-	name: string;
+export type Location = Entity & {
 	type: string;
 	dimension: string;
 	residents: string[];
-	url: string;
 	created: string;
 };
 
@@ -50,8 +47,6 @@ export type SearchResult<T> = {
 };
 
 // ----- ----- CUSTOM ----- -----
-
-export type Entity = Character | Location | Episode;
 
 export type LocationReference = {
 	name: string;
