@@ -30,7 +30,7 @@ const updateModal = (content?: HTMLElement) => {
 		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = ">";
 		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = "X";
 		
-		currentModal.contentNode = currentModal.modalNode.appendChild(document.createElement("div"));
+		currentModal.contentNode = currentModal.modalNode.appendChild(document.createElement("section"));
 		
 		currentModal.modalNode.id = "modal-container";
 		currentModal.contentNode.id = "modal-content";
@@ -44,8 +44,11 @@ const updateModal = (content?: HTMLElement) => {
 
 	if(content && currentModal.contentNode)
 	{
-		currentModal.contentNode.innerHTML = ""
-		currentModal.contentNode.appendChild(content);
+		// We need to do this because we might add eventlisteners within the modal later.
+		// Also: This approach is faster than a loop replacement.
+		currentModal.contentNode.replaceWith(content);
+		currentModal.contentNode = content;
+		currentModal.contentNode.id = "modal-content";
 	}
 }
 
@@ -82,6 +85,22 @@ export const openEntityModal = (entity:Entity) => {
 	updateModal(contentMethod);
 }
 
+const generateModalHeader = (entity: Entity) => {
+	const span = document.createElement("span");
+	const favoriteButton = span.appendChild(document.createElement("button"));
+	const wikiButton = span.appendChild(document.createElement("button"));
+	span.appendChild(document.createElement("h2")).textContent = entity.name;
+
+	favoriteButton.textContent = "❤";
+
+	wikiButton.textContent = "📄";
+	wikiButton.addEventListener('click', () => {
+		window.open(`https://rickandmorty.fandom.com/wiki/${entity.name.split(" ").join("_")}`);
+	});
+
+	return span;
+}
+
 const getErrorModal = (msg:string) => {
 
 	const container = document.createElement("div")
@@ -92,7 +111,7 @@ const getErrorModal = (msg:string) => {
 
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("div");
-
+	container.appendChild(generateModalHeader(character));
 	container.appendChild(document.createElement("h2")).textContent = character.name;
 
 	return container;
