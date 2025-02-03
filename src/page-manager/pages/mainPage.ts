@@ -1,10 +1,8 @@
 import { renderCard } from "../../components/entityCard/entityCard";
 import { HeaderType } from "../../components/layout/header/header.enums";
-import { openEntityModal } from "../../components/modal/modal";
 import api from "../../services/api";
 import { Character, Location, Entity, SearchResult, Episode } from "../../types/api.types";
 import { Page } from "../../types/pageManager.types";
-import { cardRenderer } from "../../utils/renderer";
 
 let currentSearch: SearchResult<Entity> | undefined = undefined;
 
