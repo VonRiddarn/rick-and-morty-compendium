@@ -34,11 +34,20 @@ const loadEntities = async () => {
 	if(!currentSearch)
 		return;
 
+	appendPagnation(mainPage.node);
+
 	currentSearch.results.forEach((e) => {
 		mainPage.node.appendChild(renderCard(e) as HTMLElement);
 	});
 
-	const pagnation = mainPage.node.appendChild(document.createElement("span"));
+	appendPagnation(mainPage.node);
+
+	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
+}
+
+
+const appendPagnation = (parent: HTMLElement) => {
+	const pagnation = parent.appendChild(document.createElement("span"));
 	pagnation.id = "pagnation";
 	const prevButton = pagnation.appendChild(document.createElement("button"));
 	const nextButton = pagnation.appendChild(document.createElement("button"));
@@ -61,10 +70,7 @@ const loadEntities = async () => {
 
 		loadEntitiesFromPagnation(currentSearch.info.prev);
 	});
-
-	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 }
-
 
 // We will use main:empty::after OR main:not(:has(*))::after
 // To apply a spinner when main has no content. 
