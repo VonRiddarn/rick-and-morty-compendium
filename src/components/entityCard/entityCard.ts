@@ -1,5 +1,5 @@
 import { Character, Entity, Episode, Location } from "../../types/api.types";
-import { getEndpointName, parseSignature, parseUrl } from "../../utils/api.utils";
+import { getEndpointName, parseSignature } from "../../utils/api.utils";
 import { openEntityModal } from "../modal/modal";
 import "./entityCard.scss";
 

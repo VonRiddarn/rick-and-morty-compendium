@@ -1,7 +1,7 @@
 import { generateCard } from "../../components/entityCard/entityCard";
 import { HeaderType } from "../../components/layout/header/header.enums";
 import api from "../../services/api";
-import { Character, Location, Entity, SearchResult, Episode, Endpoint, Query } from "../../types/api.types";
+import { Entity, SearchResult, Endpoint, Query } from "../../types/api.types";
 import { Page } from "../../types/pageManager.types";
 
 let currentSearch: SearchResult<Entity> | undefined = undefined;
