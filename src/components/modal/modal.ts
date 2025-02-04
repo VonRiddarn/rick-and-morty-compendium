@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { Character, Entity, Episode, Location } from "../../types/api.types";
-import { getEpisodeNameFromUrl, parseUrl } from "../../utils/api.utils";
+import { getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api.utils";
 import "./modal.scss";
 
 type Modal = {
@@ -93,18 +93,30 @@ export const openEntityModal = (entity:Entity | undefined) => {
 	updateModal(contentMethod);
 }
 
-const generateModalHeader = (entity: Entity) => {
+type ModalHeaderOptions = {
+	title: string;
+	prefix?: string;
+	suffix?: string;
+}
+
+const generateModalHeader = (headerOptions:ModalHeaderOptions) => {
+
+	// Lazy af.
+	// If defined, keep; else define as empty
+	headerOptions.prefix = headerOptions.prefix ? headerOptions.prefix : "";
+	headerOptions.suffix = headerOptions.suffix ? headerOptions.suffix : "";
+
 	const span = document.createElement("span");
 	span.id = "modal-header";
 	const favoriteButton = span.appendChild(document.createElement("button"));
 	const wikiButton = span.appendChild(document.createElement("button"));
-	span.appendChild(document.createElement("h2")).textContent = entity.name;
+	span.appendChild(document.createElement("h2")).textContent = `${headerOptions.prefix} ${headerOptions.title} ${headerOptions.suffix}`;
 
 	favoriteButton.textContent = "❤";
 
 	wikiButton.textContent = "📄";
 	wikiButton.addEventListener('click', () => {
-		window.open(`https://rickandmorty.fandom.com/wiki/${entity.name.split(" ").join("_")}`);
+		window.open(`https://rickandmorty.fandom.com/wiki/${headerOptions.title.split(" ").join("_")}`);
 	});
 
 	return span;
@@ -121,7 +133,7 @@ const getErrorModal = (msg:string) => {
 
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("section");
-	container.appendChild(generateModalHeader(character));
+	container.appendChild(generateModalHeader({title: character.name, suffix: `(${character.status})`}));
 	container.appendChild(document.createElement("img")).src = character.image;
 	container.appendChild(document.createElement("p")).textContent = character.species;
 	container.appendChild(document.createElement("p")).textContent = character.gender;
@@ -143,6 +155,7 @@ const getCharacterModal = (character:Character) => {
 			openEntityModal(await api.getObject.fromUrl<Location>(character.origin.url));
 	});
 
+	container.appendChild(document.createElement("h3")).textContent = "Appearances";
 	const appearances = container.appendChild(document.createElement("ul"));
 	character.episode.forEach(async (e) => {
 		const episodeButton = appearances.appendChild(document.createElement("li")).appendChild(document.createElement("button"));
@@ -158,14 +171,14 @@ const getCharacterModal = (character:Character) => {
 
 const getLocationModal = (location:Location) => {
 	const container = document.createElement("section");
-	container.appendChild(generateModalHeader(location));
+	container.appendChild(generateModalHeader({title: location.name}));
 
 	return container;
 }
 
 const getEpisodenModal = (episode:Episode) => {
 	const container = document.createElement("section");
-	container.appendChild(generateModalHeader(episode));
+	container.appendChild(generateModalHeader({title: episode.name, suffix: `(Season ${parseSignature(episode.episode).season})`}));
 
 	return container;
 }
