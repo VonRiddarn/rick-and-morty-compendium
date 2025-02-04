@@ -35,7 +35,9 @@ const updateModal = (content?: HTMLElement, usePagnation = true) => {
 
 		currentModal.modalNode = currentRoot.appendChild(document.createElement("div"));
 
-		backButton = currentModal.modalNode.appendChild(document.createElement("Button"));
+		const navigation = currentModal.modalNode.appendChild(document.createElement("nav"));
+
+		backButton = navigation.appendChild(document.createElement("Button"));
 		backButton.textContent = "<";
 
 		backButton.addEventListener('click', async () => {
@@ -53,7 +55,7 @@ const updateModal = (content?: HTMLElement, usePagnation = true) => {
 			console.log("BACK: " + modalIndex);
 		});
 
-		forwardButton = currentModal.modalNode.appendChild(document.createElement("Button"));
+		forwardButton = navigation.appendChild(document.createElement("Button"));
 		forwardButton.textContent = ">";
 		forwardButton.addEventListener('click', async () => {
 			if(modalHistory[modalIndex + 1] === undefined)
@@ -70,7 +72,7 @@ const updateModal = (content?: HTMLElement, usePagnation = true) => {
 			console.log("BACK: " + modalIndex);
 		});
 
-		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = "X";
+		navigation.appendChild(document.createElement("Button")).innerHTML = "X";
 		
 		currentModal.contentNode = currentModal.modalNode.appendChild(document.createElement("section"));
 		
