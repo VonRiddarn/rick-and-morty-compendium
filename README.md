@@ -139,3 +139,10 @@ this approach will ensure that the memory footprint is stable and prevents the a
 **Cons**
 * Excessive calls to the garbage collector.
 * Reduced readability due to callstack jumping.
+
+## Notes
+Make a dictionary "notes" or something.  
+Key is a string with the syntax: type_id  
+Value is the note.  
+
+This means we can collect any note by parsing the entity endpoint and adding the entity id as a key.
