@@ -193,13 +193,29 @@ const getLocationModal = (location:Location) => {
 		card.addEventListener('click', async () => {
 			openEntityModal(await api.getObject.fromUrl<Episode>(c));
 		});
-	})
+	});
 	return container;
 }
 
 const getEpisodenModal = (episode:Episode) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: episode.name, suffix: `(Season ${parseSignature(episode.episode).season})`}));
+	container.appendChild(document.createElement("p")).textContent = episode.air_date;
+	container.appendChild(document.createElement("h2")).textContent = "Actors";
+
+	const actors = container.appendChild(document.createElement("ul"));
+
+	episode.characters.forEach(async (c) => {
+		const character = await api.getObject.fromUrl<Character>(c);
+		if(!character)
+			return;
+		
+		const card = actors.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
+
+		card.addEventListener('click', async () => {
+			openEntityModal(await api.getObject.fromUrl<Episode>(c));
+		});
+	});
 
 	return container;
 }
