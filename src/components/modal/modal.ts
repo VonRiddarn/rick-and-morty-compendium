@@ -116,7 +116,9 @@ const generateModalHeader = (headerOptions:ModalHeaderOptions) => {
 
 	wikiButton.textContent = "📄";
 	wikiButton.addEventListener('click', () => {
-		window.open(`https://rickandmorty.fandom.com/wiki/${headerOptions.title.split(" ").join("_")}`);
+		// BRO... .replace(string, string) replaces only the FIRST INSTANCE!!!
+		// To replace all instances you need to use a regex. Fml.
+		window.open(`https://rickandmorty.fandom.com/wiki/${headerOptions.title.split(" ").join("_").replace(/,/g, "")}`);
 	});
 
 	return span;
