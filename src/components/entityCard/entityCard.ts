@@ -3,7 +3,7 @@ import { getEndpointName, parseSignature, parseUrl } from "../../utils/api.utils
 import { openEntityModal } from "../modal/modal";
 import "./entityCard.scss";
 
-export const renderCard = (entity:Entity) => {
+export const generateCard = (entity:Entity) => {
 
 	let card = null;
 

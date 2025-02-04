@@ -1,4 +1,4 @@
-import { renderCard } from "../../components/entityCard/entityCard";
+import { generateCard } from "../../components/entityCard/entityCard";
 import { HeaderType } from "../../components/layout/header/header.enums";
 import api from "../../services/api";
 import { Character, Location, Entity, SearchResult, Episode, Endpoint, Query } from "../../types/api.types";
@@ -37,7 +37,7 @@ const loadEntities = async () => {
 	appendPagnation(mainPage.node);
 
 	currentSearch.results.forEach((e) => {
-		mainPage.node.appendChild(renderCard(e) as HTMLElement);
+		mainPage.node.appendChild(generateCard(e) as HTMLElement);
 	});
 
 	appendPagnation(mainPage.node);

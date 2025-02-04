@@ -1,6 +1,7 @@
 import api from "../../services/api";
 import { Character, Entity, Episode, Location } from "../../types/api.types";
 import { getCharacterNameAndImageFromUrl, getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api.utils";
+import { generateCard } from "../entityCard/entityCard";
 import "./modal.scss";
 
 type Modal = {
@@ -178,19 +179,18 @@ const getLocationModal = (location:Location) => {
 	container.appendChild(document.createElement("p")).textContent = location.dimension;
 	
 	container.appendChild(document.createElement("h3")).textContent = "Residents";
+	
 	const residents = container.appendChild(document.createElement("ul"));
+
 	location.residents.forEach(async (c) => {
-		const characterReference = await getCharacterNameAndImageFromUrl(c);
-		if(!characterReference)
+		const character = await api.getObject.fromUrl<Character>(c);
+		if(!character)
 			return;
 		
-		const episodeButton = residents.appendChild(document.createElement("li")).appendChild(document.createElement("button"));
-		episodeButton.classList.add("character-ref-button");
+		const card = residents.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
 
-		episodeButton.appendChild(document.createElement("img")).src = characterReference.image;
-		episodeButton.appendChild(document.createElement("p")).textContent = characterReference.name;
 		
-		episodeButton.addEventListener('click', async () => {
+		card.addEventListener('click', async () => {
 			openEntityModal(await api.getObject.fromUrl<Episode>(c));
 		});
 	})
