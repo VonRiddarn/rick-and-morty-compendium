@@ -87,16 +87,3 @@ const loadEntitiesFromPagnation = async (url: string | null) => {
 	currentSearch = await api.getResults.fromUrl<Entity>(url);
 	loadEntities();
 }
-
-const addMorePeople = async () => {
-	if(currentSearch === undefined)
-		return;
-
-	let nextPage = currentSearch.info.next;
-	if(nextPage === null)
-		return;
-
-	currentSearch = await api.getResults.fromUrl<Entity>(nextPage);
-	currentSearch?.results.forEach((e) => mainPage.node.appendChild(renderCard(e) as HTMLElement));
-	console.log(currentSearch);
-}
