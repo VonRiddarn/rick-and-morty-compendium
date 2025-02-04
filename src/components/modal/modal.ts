@@ -118,8 +118,8 @@ const generateModalHeader = (headerOptions:ModalHeaderOptions) => {
 	wikiButton.textContent = "📄";
 	wikiButton.addEventListener('click', () => {
 		// BRO... .replace(string, string) replaces only the FIRST INSTANCE!!!
-		// To replace all instances you need to use a regex. Fml.
-		window.open(`https://rickandmorty.fandom.com/wiki/${headerOptions.title.split(" ").join("_").replace(/,/g, "")}`);
+		// To replace all instances you need to use a regex. Fml. OLD: (/,/g, "")
+		window.open(`https://rickandmorty.fandom.com/wiki/${headerOptions.title.split(" ").join("_").replace(/[(),]/g, "")}`);
 	});
 
 	return span;
@@ -160,6 +160,7 @@ const getCharacterModal = (character:Character) => {
 
 	container.appendChild(document.createElement("h3")).textContent = "Appearances";
 	const appearances = container.appendChild(document.createElement("ul"));
+
 	character.episode.forEach(async (e) => {
 		const episodeButton = appearances.appendChild(document.createElement("li")).appendChild(document.createElement("button"));
 		episodeButton.classList.add("ref-button");
@@ -167,7 +168,7 @@ const getCharacterModal = (character:Character) => {
 		episodeButton.addEventListener('click', async () => {
 			openEntityModal(await api.getObject.fromUrl<Episode>(e));
 		});
-	})
+	});
 
 	return container;
 }
