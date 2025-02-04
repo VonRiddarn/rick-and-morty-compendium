@@ -4,6 +4,9 @@ import { getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api
 import { generateCard } from "../entityCard/entityCard";
 import "./modal.scss";
 
+
+let backButton: HTMLElement | null = null;
+let forwardButton: HTMLElement | null = null;
 let modalHistory:string[] = [];
 let modalIndex = 0;
 
@@ -18,7 +21,7 @@ const currentModal:Modal = {
 	contentNode: null
 }
 
-const updateModal = (content?: HTMLElement) => {
+const updateModal = (content?: HTMLElement, usePagnation = true) => {
 
 	if(currentRoot === null)
 	{
@@ -31,7 +34,8 @@ const updateModal = (content?: HTMLElement) => {
 		});
 
 		currentModal.modalNode = currentRoot.appendChild(document.createElement("div"));
-		const backButton = currentModal.modalNode.appendChild(document.createElement("Button"));
+
+		backButton = currentModal.modalNode.appendChild(document.createElement("Button"));
 		backButton.textContent = "<";
 
 		backButton.addEventListener('click', async () => {
@@ -49,7 +53,7 @@ const updateModal = (content?: HTMLElement) => {
 			console.log("BACK: " + modalIndex);
 		});
 
-		const forwardButton = currentModal.modalNode.appendChild(document.createElement("Button"));
+		forwardButton = currentModal.modalNode.appendChild(document.createElement("Button"));
 		forwardButton.textContent = ">";
 		forwardButton.addEventListener('click', async () => {
 			if(modalHistory[modalIndex + 1] === undefined)
@@ -88,6 +92,16 @@ const updateModal = (content?: HTMLElement) => {
 		currentModal.contentNode = content;
 		currentModal.contentNode.id = "modal-content";
 	}
+
+	if(!usePagnation) {
+		(backButton as HTMLElement).classList.add("force-hidden");
+		(forwardButton as HTMLElement).classList.add("force-hidden");
+	}
+	else {
+		(backButton as HTMLElement).classList.remove("force-hidden");
+		(forwardButton as HTMLElement).classList.remove("force-hidden");
+	}
+
 }
 
 const killModal = (modalRoot:HTMLElement) => {
@@ -120,7 +134,7 @@ const updateModalHistory = (newPage: string) => {
 };
 
 export const openFilterModal = () => {
-	updateModal(getErrorModal("FILTER"));
+	updateModal(getErrorModal("FILTER"), false);
 }
 
 export const openEntityModal = (entity:Entity | undefined, ignoreModalHistory = false) => {
