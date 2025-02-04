@@ -1,5 +1,6 @@
+import api from "../../services/api";
 import { Character, Entity, Episode, Location } from "../../types/api.types";
-import { parseUrl } from "../../utils/api.utils";
+import { getEpisodeNameFromUrl, parseUrl } from "../../utils/api.utils";
 import "./modal.scss";
 
 type Modal = {
@@ -63,7 +64,14 @@ export const openFilterModal = () => {
 	updateModal(getErrorModal("FILTER"));
 }
 
-export const openEntityModal = (entity:Entity) => {
+export const openEntityModal = (entity:Entity | undefined) => {
+
+	if(entity === undefined)
+	{
+		console.log("NOT A VALID ENTITY!");
+		return;
+	}
+
 	const type = parseUrl(entity.url);
 	let contentMethod = getErrorModal("ERROR: Couldn't create modal from type!");
 
@@ -114,6 +122,36 @@ const getErrorModal = (msg:string) => {
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader(character));
+	container.appendChild(document.createElement("img")).src = character.image;
+	container.appendChild(document.createElement("p")).textContent = character.species;
+	container.appendChild(document.createElement("p")).textContent = character.gender;
+	container.appendChild(document.createElement("p")).textContent = character.type;
+	const locationButton = container.appendChild(document.createElement("button"));
+	const homeButton = container.appendChild(document.createElement("button"));
+
+	locationButton.textContent = `📍 ${character.location.name}`;
+	locationButton.classList.add("ref-button");
+	locationButton.addEventListener('click', async () => {
+		if(character.location.url)
+			openEntityModal(await api.getObject.fromUrl<Location>(character.location.url) as Location);
+	});
+	
+	homeButton.textContent = `🏠 ${character.origin.name}`;
+	homeButton.classList.add("ref-button");
+	homeButton.addEventListener('click', async () => {
+		if(character.origin.url)
+			openEntityModal(await api.getObject.fromUrl<Location>(character.origin.url));
+	});
+
+	const appearances = container.appendChild(document.createElement("ul"));
+	character.episode.forEach(async (e) => {
+		const episodeButton = appearances.appendChild(document.createElement("li")).appendChild(document.createElement("button"));
+		episodeButton.classList.add("ref-button");
+		episodeButton.textContent = await getEpisodeNameFromUrl(e);
+		episodeButton.addEventListener('click', async () => {
+			openEntityModal(await api.getObject.fromUrl<Episode>(e));
+		});
+	})
 
 	return container;
 }

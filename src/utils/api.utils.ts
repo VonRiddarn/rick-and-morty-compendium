@@ -1,4 +1,5 @@
-import { Endpoint, Entity } from "../types/api.types";
+import api from "../services/api";
+import { Endpoint, Entity, Episode } from "../types/api.types";
 
 export const parseSignature = (signature: string): {season:number, episode:number} => {
 	
@@ -24,4 +25,10 @@ export const getEndpointName = (entity:Entity):Endpoint | null  => {
 	const type = parseUrl(entity.url);
 
 	return type as Endpoint | null;
+}
+
+export const getEpisodeNameFromUrl = async (url: string) => {
+	const ret = (await api.getObject.fromUrl<Episode>(url))?.name;
+
+	return ret ? ret : "UNKNOWN";
 }
