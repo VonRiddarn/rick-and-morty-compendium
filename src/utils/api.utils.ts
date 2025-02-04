@@ -1,5 +1,5 @@
 import api from "../services/api";
-import { Endpoint, Entity, Episode } from "../types/api.types";
+import { Character, Endpoint, Entity, Episode } from "../types/api.types";
 
 export const parseSignature = (signature: string): {season:number, episode:number} => {
 	
@@ -31,4 +31,11 @@ export const getEpisodeNameFromUrl = async (url: string) => {
 	const ret = (await api.getObject.fromUrl<Episode>(url))?.name;
 
 	return ret ? ret : "UNKNOWN";
+}
+
+export const getCharacterNameAndImageFromUrl = async (url:string) => {
+	
+	const ret = (await api.getObject.fromUrl<Character>(url));
+
+	return ret ? {name:ret.name, image:ret.image} : undefined;
 }
