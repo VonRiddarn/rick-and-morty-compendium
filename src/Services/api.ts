@@ -18,6 +18,8 @@ const constructQuery = (queries: Query[], asAdditionals = false): string => {
 }
 
 // TODO: Add some Try-catches to handle 4xx errors
+// TODO: Remove the explicit generic calls?
+// We could make do with returning an entity and just converting it when used.
 
 const api = {
 
