@@ -4,6 +4,9 @@ import { getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api
 import { generateCard } from "../entityCard/entityCard";
 import "./modal.scss";
 
+let modalHistory:string[] = [];
+let modalIndex = 0;
+
 type Modal = {
 	modalNode: HTMLElement | null;
 	contentNode: HTMLElement | null;
@@ -28,8 +31,41 @@ const updateModal = (content?: HTMLElement) => {
 		});
 
 		currentModal.modalNode = currentRoot.appendChild(document.createElement("div"));
-		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = "<";
-		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = ">";
+		const backButton = currentModal.modalNode.appendChild(document.createElement("Button"));
+		backButton.textContent = "<";
+
+		backButton.addEventListener('click', async () => {
+			if(modalHistory[modalIndex - 1] === undefined)
+				return;
+
+			const entity = await api.getObject.fromUrl<Entity>(modalHistory[modalIndex -1]);
+
+			if(!entity)
+				return;
+
+			openEntityModal(entity, true);
+			modalIndex--;
+			console.log("BACK: " + modalHistory);
+			console.log("BACK: " + modalIndex);
+		});
+
+		const forwardButton = currentModal.modalNode.appendChild(document.createElement("Button"));
+		forwardButton.textContent = ">";
+		forwardButton.addEventListener('click', async () => {
+			if(modalHistory[modalIndex + 1] === undefined)
+				return;
+
+			const entity = await api.getObject.fromUrl<Entity>(modalHistory[modalIndex + 1]);
+
+			if(!entity)
+				return;
+
+			openEntityModal(entity, true);
+			modalIndex++;
+			console.log("BACK: " + modalHistory);
+			console.log("BACK: " + modalIndex);
+		});
+
 		currentModal.modalNode.appendChild(document.createElement("Button")).innerHTML = "X";
 		
 		currentModal.contentNode = currentModal.modalNode.appendChild(document.createElement("section"));
@@ -59,19 +95,44 @@ const killModal = (modalRoot:HTMLElement) => {
 
 	if(currentModal.contentNode)
 		currentModal.contentNode.innerHTML = "";
+
+	modalHistory = [];
 }
+
+const updateModalHistory = (newPage: string) => {
+	// Prevent duplicate history entries
+	if (modalHistory[modalHistory.length - 1] === newPage) {
+		console.log(`Skipping duplicate history entry for ${newPage}`);
+		return;
+	}
+
+	// If we are not at the end of the history, we are branching.
+	// Cut all history saved beyond the current index and start fresh.
+	if (modalIndex < modalHistory.length - 1) {
+		modalHistory = modalHistory.slice(0, modalIndex + 1);
+	}
+
+	modalHistory.push(newPage);
+	modalIndex = modalHistory.length - 1;
+
+	console.log("UpdateModal: " + modalHistory);
+	console.log("UpdateModal: " + modalIndex);
+};
 
 export const openFilterModal = () => {
 	updateModal(getErrorModal("FILTER"));
 }
 
-export const openEntityModal = (entity:Entity | undefined) => {
+export const openEntityModal = (entity:Entity | undefined, ignoreModalHistory = false) => {
 
 	if(entity === undefined)
 	{
 		console.log("NOT A VALID ENTITY!");
 		return;
 	}
+
+	if(!ignoreModalHistory)
+		updateModalHistory(entity.url);
 
 	const type = parseUrl(entity.url);
 	let contentMethod = getErrorModal("ERROR: Couldn't create modal from type!");
@@ -148,7 +209,7 @@ const getCharacterModal = (character:Character) => {
 	locationButton.classList.add("ref-button");
 	locationButton.addEventListener('click', async () => {
 		if(character.location.url)
-			openEntityModal(await api.getObject.fromUrl<Location>(character.location.url) as Location);
+			openEntityModal(await api.getObject.fromUrl<Location>(character.location.url));
 	});
 	
 	homeButton.textContent = `🏠 ${character.origin.name}`;
@@ -188,12 +249,7 @@ const getLocationModal = (location:Location) => {
 		if(!character)
 			return;
 		
-		const card = residents.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
-
-		
-		card.addEventListener('click', async () => {
-			openEntityModal(await api.getObject.fromUrl<Episode>(c));
-		});
+		residents.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
 	});
 	return container;
 }
@@ -211,11 +267,8 @@ const getEpisodenModal = (episode:Episode) => {
 		if(!character)
 			return;
 		
-		const card = actors.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
+		actors.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
 
-		card.addEventListener('click', async () => {
-			openEntityModal(await api.getObject.fromUrl<Episode>(c));
-		});
 	});
 
 	return container;
