@@ -35,9 +35,10 @@ export const getEpisodeNameFromUrl = async (url: string) => {
 
 export const getEntityImage = (entity:Entity):HTMLElement => {
 
+	// TODO: Error fallback image 
+	// Change this to switch("lalala") to demonstrate that the error fallback image works.
 	switch(getEndpointName(entity))
 	{
-
 		case "character":
 		const cImg = document.createElement("img");
 		cImg.src = (entity as Character).image;
