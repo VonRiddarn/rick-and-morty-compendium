@@ -10,15 +10,15 @@ export const generateCard = (entity:Entity) => {
 	switch(getEndpointName(entity))
 	{
 		case "character":
-		card = generateCharacterCard(entity as Character);
+		card = generateCardInternal(entity);
 		break;
 
 		case "location":
-		card = generateLocationCard(entity as Location);
+		card = generateCardInternal(entity);
 		break;
 
 		case "episode":
-		card = generateEpisodeCard(entity as Episode);
+		card = generateCardInternal(entity);
 		break;
 
 		default:
@@ -36,40 +36,87 @@ export const generateCard = (entity:Entity) => {
 	return card;
 }
 
-const generateCharacterCard = (character: Character) => {
+export const generateShortCard = (entity:Entity) => {
+	
+}
+
+const generateCardInternal = (entity: Entity) => {
+
 	const el = document.createElement("article");
-	el.appendChild(document.createElement("p")).innerHTML = `${character.status}`;
-	el.appendChild(document.createElement("img")).src = character.image;
-	el.appendChild(document.createElement("h2")).innerHTML = character.name;
-	el.appendChild(document.createElement("p")).innerHTML = `📍${character.location.name}`;
-	el.appendChild(document.createElement("p")).innerHTML = `🏠${character.origin.name}`;
+	const entityType = getEndpointName(entity);
+
+	if(entityType == "character")
+		el.appendChild(document.createElement("p")).innerHTML = `${(entity as Character).status}`;
+
+	el.appendChild(getEntityImage(entity));
+	el.appendChild(document.createElement("h2")).innerHTML = entity.name;
+
+	switch(entityType) {
+		case "character":
+			const c = entity as Character;
+			el.appendChild(document.createElement("p")).innerHTML = `📍${c.location.name}`;
+			el.appendChild(document.createElement("p")).innerHTML = `🏠${c.origin.name}`;
+		break;
+
+		case "location":
+			const l = entity as Location;
+			el.appendChild(document.createElement("p")).innerHTML = l.type;
+			el.appendChild(document.createElement("p")).innerHTML = l.dimension;
+			el.appendChild(document.createElement("p")).innerHTML = `${l.residents.length} inhabitants`;
+		break;
+
+		case "episode":
+			const e = entity as Episode;
+			el.appendChild(document.createElement("p")).innerHTML = e.air_date;
+			el.appendChild(document.createElement("p")).innerHTML = `${e.characters.length} actors`;
+		break;
+	}
 	
 	return el;
 }
 
-const generateLocationCard = (location:Location) => {
-	const el = document.createElement("article");
-	//e.appendChild(document.createElement("img")).src = LOCATION TYPE IMAGES;
-	el.appendChild(document.createElement("h2")).innerHTML = location.name;
-	el.appendChild(document.createElement("p")).innerHTML = location.type;
-	el.appendChild(document.createElement("p")).innerHTML = location.dimension;
-	el.appendChild(document.createElement("p")).innerHTML = `${location.residents.length} inhabitants`;
-	
-	return el;
-}
+const getEntityImage = (entity:Entity):HTMLElement => {
 
-const generateEpisodeCard = (episode: Episode) => {
+	switch(getEndpointName(entity))
+	{
 
-	const {season:s, episode:e} = parseSignature(episode.episode);
-	const el = document.createElement("article");
+		case "character":
+		const cImg = document.createElement("img");
+		cImg.src = (entity as Character).image;
+		return cImg;
 
-	const signature = el.appendChild(document.createElement("p"));
-	signature.classList.add("signature");
-	signature.innerHTML = `S${s}E${e}`;
+		case "location":
+		const lImg = document.createElement("img");
+		lImg.src = "/public/images/Icon_Location.png";
+		return lImg;
 
-	el.appendChild(document.createElement("h2")).innerHTML = episode.name;
-	el.appendChild(document.createElement("p")).innerHTML = episode.air_date;
-	el.appendChild(document.createElement("p")).innerHTML = `${episode.characters.length} actors`;
-	
-	return el;
-}
+		case "episode":
+		const eSvg = document.createElement("div");
+		fetch("/public/images/Icon_Episode_Dynamic.svg")
+		.then(response => response.text())
+		.then(svgContent => {
+            eSvg.innerHTML = svgContent;
+
+            const { season, episode } = parseSignature((entity as Episode).episode);
+
+            setTimeout(() => {
+                const seasonText = eSvg.querySelector("#seasonText");
+                const episodeText = eSvg.querySelector("#episodeText");
+
+                if (seasonText) seasonText.textContent = `Season ${season}`;
+                if (episodeText) episodeText.textContent = `Episode ${episode}`;
+            }, 0);
+        })
+		.catch(error => {
+			console.error("Error loading svg:",error);
+			eSvg.innerHTML = "Error";
+		})
+		return eSvg;
+
+		default:
+		console.error("COULD NOT FIND ENDPOINT OF CARD!");
+		const errorImg = document.createElement("img");
+		errorImg.src = "/public/images/Icon_Error.png";
+		return errorImg;
+	}
+} 
