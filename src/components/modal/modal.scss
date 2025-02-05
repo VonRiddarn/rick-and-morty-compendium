@@ -45,6 +45,10 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 
+	img, svg {
+		max-width: 300px;
+	}
+	
 	ul {
 		list-style-type: none;
 	}

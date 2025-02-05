@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { Character, Entity, Episode, Location } from "../../types/api.types";
-import { getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api.utils";
+import { getEntityImage, getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api.utils";
 import { generateCard } from "../entityCard/entityCard";
 import "./modal.scss";
 
@@ -216,10 +216,11 @@ const getErrorModal = (msg:string) => {
 	return container;
 }
 
+//////////////////
 const getCharacterModal = (character:Character) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: character.name, suffix: `(${character.status})`}));
-	container.appendChild(document.createElement("img")).src = character.image;
+	container.appendChild(getEntityImage(character));
 	container.appendChild(document.createElement("p")).textContent = character.species;
 	container.appendChild(document.createElement("p")).textContent = character.gender;
 	container.appendChild(document.createElement("p")).textContent = character.type;
@@ -254,10 +255,13 @@ const getCharacterModal = (character:Character) => {
 
 	return container;
 }
+//////////////////
 
+//////////////////
 const getLocationModal = (location:Location) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: location.name}));
+	container.appendChild(getEntityImage(location));
 	container.appendChild(document.createElement("p")).textContent = location.type;
 	container.appendChild(document.createElement("p")).textContent = location.dimension;
 	
@@ -274,10 +278,13 @@ const getLocationModal = (location:Location) => {
 	});
 	return container;
 }
+//////////////////
 
+//////////////////
 const getEpisodenModal = (episode:Episode) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: episode.name, suffix: `(Season ${parseSignature(episode.episode).season})`}));
+	container.appendChild(getEntityImage(episode));
 	container.appendChild(document.createElement("p")).textContent = episode.air_date;
 	container.appendChild(document.createElement("h2")).textContent = "Actors";
 
@@ -294,3 +301,4 @@ const getEpisodenModal = (episode:Episode) => {
 
 	return container;
 }
+//////////////////
