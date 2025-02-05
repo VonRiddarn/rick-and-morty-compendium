@@ -1,5 +1,5 @@
 <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
-    <rect width="300" height="300" fill="lightgray" />
-    <text id="seasonText" x="50%" y="45%" font-size="24" fill="black" text-anchor="middle">Season 1</text>
-    <text id="episodeText" x="50%" y="55%" font-size="24" fill="black" text-anchor="middle">Episode 1</text>
+    <rect width="300" height="300" fill="#ffffff" />
+    <text id="seasonText" x="50%" y="45%" font-size="24" fill="currentcolor" text-anchor="middle">Season 1</text>
+    <text id="episodeText" x="50%" y="55%" font-size="24" fill="currentcolor" text-anchor="middle">Episode 1</text>
 </svg>
