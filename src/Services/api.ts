@@ -1,4 +1,4 @@
-import { API_ROOT } from "../config/api.config";
+import { API_ROOT } from "./api.config";
 import { Endpoint, Query, SearchResult } from "../types/api.types";
 
 
