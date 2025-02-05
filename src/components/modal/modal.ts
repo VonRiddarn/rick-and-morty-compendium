@@ -241,7 +241,7 @@ const getCharacterModal = (character:Character) => {
 			openEntityModal(await api.getObject.fromUrl<Location>(character.origin.url));
 	});
 
-	container.appendChild(document.createElement("h3")).textContent = "Appearances";
+	container.appendChild(document.createElement("h3")).textContent = `Appearances (${character.episode.length})`;
 	const appearances = container.appendChild(document.createElement("ul"));
 
 	character.episode.forEach(async (e) => {
@@ -265,7 +265,7 @@ const getLocationModal = (location:Location) => {
 	container.appendChild(document.createElement("p")).textContent = location.type;
 	container.appendChild(document.createElement("p")).textContent = location.dimension;
 	
-	container.appendChild(document.createElement("h3")).textContent = "Residents";
+	container.appendChild(document.createElement("h3")).textContent = `Residents (${location.residents.length})`;
 	
 	const residents = container.appendChild(document.createElement("ul"));
 
@@ -283,10 +283,10 @@ const getLocationModal = (location:Location) => {
 //////////////////
 const getEpisodenModal = (episode:Episode) => {
 	const container = document.createElement("section");
-	container.appendChild(generateModalHeader({title: episode.name, suffix: `(Season ${parseSignature(episode.episode).season})`}));
+	container.appendChild(generateModalHeader({title: episode.name}));
 	container.appendChild(getEntityImage(episode));
 	container.appendChild(document.createElement("p")).textContent = episode.air_date;
-	container.appendChild(document.createElement("h2")).textContent = "Actors";
+	container.appendChild(document.createElement("h2")).textContent = `Actors (${episode.characters.length})`;
 
 	const actors = container.appendChild(document.createElement("ul"));
 
