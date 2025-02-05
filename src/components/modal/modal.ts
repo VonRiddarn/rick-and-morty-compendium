@@ -72,7 +72,12 @@ const updateModal = (content?: HTMLElement, usePagnation = true) => {
 			console.log("BACK: " + modalIndex);
 		});
 
-		navigation.appendChild(document.createElement("Button")).innerHTML = "X";
+		const closeButton = navigation.appendChild(document.createElement("Button"));
+		closeButton.textContent = "X";
+		closeButton.addEventListener('click', () => {
+			if(currentRoot)
+				killModal(currentRoot);
+		});
 		
 		currentModal.contentNode = currentModal.modalNode.appendChild(document.createElement("section"));
 		
