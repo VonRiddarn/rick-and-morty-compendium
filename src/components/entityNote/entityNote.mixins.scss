@@ -1,0 +1,22 @@
+@use "/src/sass/utils/variables";
+
+@mixin note-area($f-color: black, $bg-color: white) {
+	color: $f-color;
+	background-color: $bg-color;
+
+	width: 100%;
+	padding: 0.25rem;
+
+	min-height: 10rem;
+	max-height: 10rem;
+
+	overflow-y: auto;
+	overflow-wrap: break-word;
+
+	border-radius: variables.$radius-rounded-extra-subtle;
+
+	// Use default font size, weight, and spacing of p
+	font-size: variables.$font-size-p-big;
+	font-weight: variables.$font-weight-p-big;
+	line-height: variables.$line-height-p-big;
+}

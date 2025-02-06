@@ -1,0 +1,21 @@
+@import "./entityNote.mixins.scss";
+
+.notes {
+	*{
+		width: 100%;
+	}
+
+	p {
+		@include note-area();
+		border: 1px dashed black;
+	}
+
+	textarea {
+		@include note-area();
+		border: 1px dashed black;
+
+		&:focus {
+			outline: none;
+		}
+	}
+}
