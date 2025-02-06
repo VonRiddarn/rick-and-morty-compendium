@@ -147,6 +147,7 @@ export const openFilterModal = () => {
 
 export const openEntityModal = (entity:Entity | undefined, ignoreModalHistory = false) => {
 
+	// TODO: Initialize modal before fetching instead and use a loading spinner
 	if(entity === undefined)
 	{
 		console.log("NOT A VALID ENTITY!");
