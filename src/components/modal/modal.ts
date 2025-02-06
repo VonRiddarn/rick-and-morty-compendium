@@ -2,6 +2,7 @@ import api from "../../services/api";
 import { Character, Entity, Episode, Location } from "../../types/api.types";
 import { getEntityImage, getEpisodeNameFromUrl, parseUrl } from "../../utils/api.utils";
 import { generateCard } from "../entityCard/entityCard";
+import { getEntityNoteComponent } from "../entityNote/entityNote";
 import "./modal.scss";
 
 
@@ -252,6 +253,8 @@ const getCharacterModal = (character:Character) => {
 			openEntityModal(await api.getObject.fromUrl<Episode>(e));
 		});
 	});
+
+	container.appendChild(getEntityNoteComponent(character));
 
 	return container;
 }
