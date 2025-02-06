@@ -6,13 +6,18 @@ $background-color: #f4f4f4;
 $border-color: #e0e0e0;
 
 // Typography
-/* 
-$font-family-base: 'Arial', sans-serif;
+
+$font-size-p-big: 18px;
+$font-weight-p-big: 400;
+$line-height-p-big: 1.6;
+
+/*$font-family-base: 'Arial', sans-serif;
 $font-family-heading: 'Georgia', serif;
 $font-size-base: 16px;
 $font-size-lg: 24px;
-$line-height-base: 1.5;
-*/
+$line-height-base: 1.5;*/
+
+
 
 // Spacing (in rems or px)
 /*
@@ -34,3 +39,4 @@ $breakpoint-lg: 1024px;
 $radius-round: 50%;
 $radius-rounded: 5rem;
 $radius-rounded-subtle: 1rem;
+$radius-rounded-extra-subtle: 0.5rem;
