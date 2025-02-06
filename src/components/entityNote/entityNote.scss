@@ -6,13 +6,12 @@
 	}
 
 	p {
-		@include note-area();
-		border: 1px dashed black;
+		@include note-area($font-style: italic, $border-c: rgb(172, 172, 172));
 	}
 
 	textarea {
 		@include note-area();
-		border: 1px dashed black;
+		resize: none;
 
 		&:focus {
 			outline: none;

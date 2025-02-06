@@ -1,22 +1,29 @@
 @use "/src/sass/utils/variables";
 
-@mixin note-area($f-color: black, $bg-color: white) {
-	color: $f-color;
-	background-color: $bg-color;
+@mixin note-area($font-style: normal, $border-c: black) {
+	
+	// TODO: Use variables here later?
+	color: black;
+	background-color: white;
 
+	font-style: $font-style;
 	width: 100%;
 	padding: 0.25rem;
-
-	min-height: 10rem;
-	max-height: 10rem;
-
+	
+	height: 10rem;
+	
 	overflow-y: auto;
 	overflow-wrap: break-word;
-
+	
+	border: 1px dashed $border-c;
 	border-radius: variables.$radius-rounded-extra-subtle;
+
+	// Forcing the font family because something is wucky and I can't be bothered.
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
 	// Use default font size, weight, and spacing of p
 	font-size: variables.$font-size-p-big;
 	font-weight: variables.$font-weight-p-big;
 	line-height: variables.$line-height-p-big;
+
 }
