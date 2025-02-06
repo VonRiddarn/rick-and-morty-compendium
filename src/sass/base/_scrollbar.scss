@@ -1,0 +1,22 @@
+@use "/src/sass/utils/variables";
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: variables.$scrollbar-bg-color;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--aside-scroll-thumb);
+	border-radius: 100vh;
+	border-width: 4px;
+}
+
+@supports (scrollbar-color: red blue) {
+	* {
+		scrollbar-color: variables.$scrollbar-thumb-color variables.$scrollbar-bg-color;
+		scrollbar-width: thin;
+	}
+}
