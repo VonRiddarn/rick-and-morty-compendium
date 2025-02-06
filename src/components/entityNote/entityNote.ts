@@ -1,9 +1,8 @@
+import "./entityNote.scss";
 import { Entity } from "../../types/api.types";
 import { getEndpointName } from "../../utils/api.utils";
 
-export const notes: { [key: string]: string } = {
-	"character_1":"This is my boy, Ricky dicky!",
-};
+export const notes: { [key: string]: string } = {};
 
 export const getEntityNoteComponent = (entity: Entity) => {
 
@@ -17,6 +16,8 @@ export const getEntityNoteComponent = (entity: Entity) => {
 
 	// Initialize elements
 	const section = document.createElement("section");
+	section.className = "notes"
+
 	const header = document.createElement("h3");
 	header.textContent = "Notes";
 
@@ -38,6 +39,9 @@ export const getEntityNoteComponent = (entity: Entity) => {
 			p.className = note ? "unselectable" : "entity-note-empty unselectable";
 			section.replaceChild(p, textarea);
 			section.removeChild(saveButton);
+
+			// Scroll P to bottom so it's "in line" with the input area
+			p.scrollTop = p.scrollHeight;
 		};
 
 		saveButton.addEventListener("click", saveNote);
