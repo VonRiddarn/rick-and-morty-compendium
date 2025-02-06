@@ -35,11 +35,19 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 		textarea.value = note || "";
 
 		const saveNote = () => {
-			note = textarea.value;
-			notes[key] = note;
-			p.innerHTML = note ? note.replace(/\n/g, "<br>") : "No notes.";
+			if(textarea.value) {
+				note = textarea.value;
+				notes[key] = note;
+			}
+			else {
+				if(note)
+					delete notes[key];
+				
+				note = "";
+			}
+			
+			p.textContent = note ? note.replace(/\n/g, "<br>") : "No notes.";
 			p.className = note ? "unselectable" : "entity-note-empty unselectable";
-
 			// Only replace if textarea is still in the DOM
 			if (section.contains(textarea)) {
 				section.replaceChild(p, textarea);
