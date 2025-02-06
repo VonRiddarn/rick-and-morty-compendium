@@ -70,6 +70,7 @@ export const getEntityImage = (entity:Entity):HTMLElement => {
 			console.error("Error loading svg:",error);
 			eSvg.innerHTML = "Error";
 		})
+		eSvg.classList.add("unselectable");
 		return eSvg;
 
 		default:
