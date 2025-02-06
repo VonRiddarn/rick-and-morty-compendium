@@ -34,16 +34,19 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 		const textarea = document.createElement("textarea");
 		textarea.value = note || "";
 
-		const saveNote = () => {
-			if(textarea.value) {
-				note = textarea.value;
-				notes[key] = note;
-			}
-			else {
-				if(note)
-					delete notes[key];
-				
-				note = "";
+		const closeNote = (save: boolean) => {
+			if(save)
+			{
+				if(textarea.value) {
+					note = textarea.value;
+					notes[key] = note;
+				}
+				else {
+					if(note)
+						delete notes[key];
+					
+					note = "";
+				}
 			}
 			
 			p.innerHTML = note ? note.replace(/\n/g, "<br>") : "No notes.";
@@ -61,7 +64,7 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 
 		const handleMouseDown = (event: MouseEvent) => {
 			if (event.target !== textarea) {
-				saveNote();
+				closeNote(true);
 				saveArea?.removeEventListener("mousedown", handleMouseDown);
 			}
 		};
@@ -69,9 +72,11 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 		saveArea?.addEventListener("mousedown", handleMouseDown);
 
 		textarea.addEventListener("keypress", (event) => {
-			if (event.key === "Enter" && !event.shiftKey) {
+			// I'm the smartest man alive!
+			// Combine a conditional with a scoped OR conditional to make more than 1 comparison!
+			if (event.key === "Enter" && (event.shiftKey || event.ctrlKey)) {
 				event.preventDefault();
-				saveNote();
+				closeNote(true);
 				saveArea?.removeEventListener("mousedown", handleMouseDown);
 			}
 		});
