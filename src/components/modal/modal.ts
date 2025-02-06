@@ -222,7 +222,7 @@ const getCharacterModal = (character:Character) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: character.name, suffix: `(${character.status})`}));
 	container.appendChild(getEntityImage(character));
-	container.appendChild(getEntityNoteComponent(character));
+	container.appendChild(getEntityNoteComponent(character, container));
 	container.appendChild(document.createElement("p")).textContent = character.species;
 	container.appendChild(document.createElement("p")).textContent = character.gender;
 	container.appendChild(document.createElement("p")).textContent = character.type;
@@ -265,7 +265,7 @@ const getLocationModal = (location:Location) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: location.name}));
 	container.appendChild(getEntityImage(location));
-	container.appendChild(getEntityNoteComponent(location));
+	container.appendChild(getEntityNoteComponent(location, container));
 	container.appendChild(document.createElement("p")).textContent = location.type;
 	container.appendChild(document.createElement("p")).textContent = location.dimension;
 	
@@ -291,7 +291,7 @@ const getEpisodenModal = (episode:Episode) => {
 	const container = document.createElement("section");
 	container.appendChild(generateModalHeader({title: episode.name}));
 	container.appendChild(getEntityImage(episode));
-	container.appendChild(getEntityNoteComponent(episode));
+	container.appendChild(getEntityNoteComponent(episode, container));
 	container.appendChild(document.createElement("p")).textContent = episode.air_date;
 	container.appendChild(document.createElement("h2")).textContent = `Actors (${episode.characters.length})`;
 
