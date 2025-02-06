@@ -1,13 +1,14 @@
+import { Page } from "../types/pageManager.types";
 import { favoritesPage } from "./pages/favoritesPage";
 import { mainPage } from "./pages/mainPage";
 
-const pageRepository = {
+export const pages:Page[] = [
+	mainPage,
+	favoritesPage
+] 
 
-	pages: {
-		main: mainPage,
-		favorites: favoritesPage,
-	},
+export const getPageByUid = (uid:string) => {
+	return pages.find((page) => page.uid === uid);
+}
 
-} as const;
-
-export default pageRepository;
+pages.forEach((page) => page.init());

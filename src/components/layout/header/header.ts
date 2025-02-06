@@ -1,8 +1,8 @@
 import { HeaderType } from "./header.enums";
 import { pageManager } from "../../../page-manager/pageManager";
-import pageRepository from "../../../page-manager/pageRepository";
 import "./header.scss";
 import { openFilterModal } from "../../modal/modal";
+import { getPageByUid } from "../../../page-manager/pageRepository";
 
 // Header navigational buttons
 export const backButton = document.getElementById("header-btn-back") as HTMLElement;
@@ -14,7 +14,7 @@ const h1 = document.querySelector("h1") as HTMLElement;
 export const initializeHeader = () => {
 		// Add eventlisteners
 		backButton?.addEventListener("click", () => {
-			pageManager.switchPage(pageRepository.pages.main);
+			pageManager.switchPage(getPageByUid("main"));
 		});
 	
 		filterButton?.addEventListener("click", () => {
@@ -22,7 +22,7 @@ export const initializeHeader = () => {
 		});
 	
 		favoritesButton?.addEventListener("click", () => {
-			pageManager.switchPage(pageRepository.pages.favorites);
+			pageManager.switchPage(getPageByUid("favorites"));
 		});
 }
 

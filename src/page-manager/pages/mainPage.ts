@@ -13,6 +13,10 @@ export const mainPage: Page = {
 		type: HeaderType.Main
 	},
 	node: document.createElement("main"),
+
+	init: function (): void {
+
+	},
 	enter: function (): void {
 		// Entered for first time, or after an error.
 		if(currentSearch === undefined)
@@ -44,7 +48,6 @@ const loadEntities = async () => {
 
 	console.log("Fetching initial search from api - you should get this message ONLY ONCE!");
 }
-
 
 const appendPagnation = (parent: HTMLElement) => {
 	const pagnation = parent.appendChild(document.createElement("span"));

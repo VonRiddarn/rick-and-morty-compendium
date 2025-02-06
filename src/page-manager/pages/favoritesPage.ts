@@ -9,6 +9,9 @@ export const favoritesPage: Page = {
 		type: HeaderType.Sub
 	},
 	node: document.createElement("main"),
+	init: function (): void {
+		const main = favoritesPage.node;
+	},
 	enter: function (): void {
 		console.log("++ Fav");
 	},
@@ -16,5 +19,5 @@ export const favoritesPage: Page = {
 		console.log("-- Fav");
 		favoritesButton.removeAttribute("style");
 		favoritesButton.classList.remove("disabled");
-	}
+	},
 }

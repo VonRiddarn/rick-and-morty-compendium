@@ -8,8 +8,13 @@ export const pageManager = {
 
 	getCurrentPage: () => currentPage as Page,
 
-	switchPage: (newPage: Page) => {
-
+	switchPage: (newPage: Page | undefined) => {
+		if(newPage === undefined)
+		{
+			console.error("Cannot process page od type 'undefined' - Please pass a valid page!");
+			return;
+		}
+		
 		if(currentPage !== undefined) {
 			currentPage.exit();
 		}

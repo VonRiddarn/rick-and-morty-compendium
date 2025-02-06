@@ -2,7 +2,7 @@ import { initializeHeader } from "./components/layout/header/header";
 import { initializeCrawledValues, seasons, types } from "./services/api.crawler";
 import "./style.scss";
 import { pageManager } from "./page-manager/pageManager";
-import pageRepository from "./page-manager/pageRepository";
+import { getPageByUid } from "./page-manager/pageRepository";
 
 
 // TODO: Prebuild page nodes and load node "main" from pageManager
@@ -12,7 +12,7 @@ const main = document.querySelector("main") as HTMLElement;
 main.appendChild(document.createElement("p")).innerHTML = "Hello world!";
 
 initializeHeader();
-pageManager.switchPage(pageRepository.pages.main);
+pageManager.switchPage(getPageByUid("main"));
 
 
 // TODO: Edit this flow of data.

@@ -7,6 +7,7 @@ export type Page = {
 		type: HeaderType
 	},
 	node: HTMLElement,
+	init: () => void;
 	enter: () => void,
 	exit: () => void,
 };
