@@ -20,6 +20,13 @@
 	background-color: rgb(255, 255, 255);
 	height: 75%;
 	width: 50%;
+
+	@media only screen and (max-width: 1024px) 
+	{
+		width: 100vh;
+		height: 100vh;	
+	} 
+
 	margin: auto;
 	border-radius: variables.$radius-rounded-subtle;
 	padding: 1rem;
