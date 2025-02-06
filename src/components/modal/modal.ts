@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { Character, Entity, Episode, Location } from "../../types/api.types";
-import { getEntityImage, getEpisodeNameFromUrl, parseSignature, parseUrl } from "../../utils/api.utils";
+import { getEntityImage, getEpisodeNameFromUrl, parseUrl } from "../../utils/api.utils";
 import { generateCard } from "../entityCard/entityCard";
 import "./modal.scss";
 
