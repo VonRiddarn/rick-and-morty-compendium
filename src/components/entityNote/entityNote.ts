@@ -71,14 +71,25 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 
 		saveArea?.addEventListener("mousedown", handleMouseDown);
 
+		// If key is escape, exit edit mode and do not save.
+		textarea.addEventListener("keydown", (event) => {
+			if(event.key === "Escape") {
+				event.preventDefault();
+				closeNote(false);
+			}
+		})
+
+		// If enter is pressed with modifier Shift or Ctrl, save and exit edit mode.
 		textarea.addEventListener("keypress", (event) => {
 			// I'm the smartest man alive!
 			// Combine a conditional with a scoped OR conditional to make more than 1 comparison!
-			if (event.key === "Enter" && (event.shiftKey || event.ctrlKey)) {
+			if (event.code === "Enter" && (event.shiftKey || event.ctrlKey)) {
 				event.preventDefault();
 				closeNote(true);
-				saveArea?.removeEventListener("mousedown", handleMouseDown);
 			}
+
+			// Remove listener from potential modal area
+			saveArea?.removeEventListener("mousedown", handleMouseDown);
 		});
 
 		// Ensure we replace only if p is still there
@@ -92,7 +103,7 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 	section.append(header, p);
 
 	return section;
-}
+};
 
 const getDictionaryKey = (entity: Entity) => {
 	return `${getEndpointName(entity)}_${entity.id}`;
