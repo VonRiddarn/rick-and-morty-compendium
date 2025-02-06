@@ -1,5 +1,5 @@
 import api from "../../services/api";
-import { Character, Entity, Episode, Location } from "../../types/api.types";
+import { Character, Entity, Episode, Location } from "../../services/api.types";
 import { getEntityImage, getEpisodeNameFromUrl, parseUrl } from "../../utils/api.utils";
 import { generateCard } from "../entityCard/entityCard";
 import { getEntityNoteComponent } from "../entityNote/entityNote";

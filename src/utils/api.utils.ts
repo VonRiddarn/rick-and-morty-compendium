@@ -1,5 +1,17 @@
 import api from "../services/api";
-import { Character, Endpoint, Entity, Episode } from "../types/api.types";
+import { Character, Endpoint, Entity, Episode, Query } from "../services/api.types";
+
+// Note:
+// We could do this using a URLSearchParams object and do "urlParams.set("query", "value")
+// This is good as is, but it's worth mentioning that we could change it in the future.
+export const constructQuery = (queries: Query[]): string => {
+	if(queries.length <= 0)
+		return "";
+
+	const parsedQueries = queries.map(({key, value}) => `${key}=${value}`);
+
+	return `?${parsedQueries.join("&")}`;
+}
 
 export const parseSignature = (signature: string): {season:number, episode:number} => {
 	

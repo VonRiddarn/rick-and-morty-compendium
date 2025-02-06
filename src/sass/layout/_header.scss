@@ -1,5 +1,3 @@
-@use "/src/sass/base/reset";
-
 // Desktop
 $h1-size-desktop: calc(3vw + 1.2em);
 $header-size-desktop: 10vw; // TODO: Use a mixin to set this instead. So we send something like button($size: 10vw) -- @mobile ($size: 15vw) or whatever

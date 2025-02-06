@@ -1,23 +1,42 @@
-import { initializeHeader } from "./components/layout/header/header";
-import { initializeCrawledValues, seasons, types } from "./services/api.crawler";
 import "./style.scss";
-import { pageManager } from "./page-manager/pageManager";
-import { getPageByUid } from "./page-manager/pageRepository";
+import { initializeCrawledValues, seasons, types } from "./services/api.crawler";
+import { openFilterModal } from "./components/modal/modal";
+import { getEntityCardsFromPagnation, getEntityCardsFromSearch } from "./utils/getEntityCards";
 
+const container = document.querySelector("#card-container") as HTMLElement;
 
-// TODO: Prebuild page nodes and load node "main" from pageManager
+document.querySelector("header")?.querySelector("button")?.addEventListener('click', () => {
+	openFilterModal();
+});
 
-const main = document.querySelector("main") as HTMLElement;
+document.querySelectorAll(".button-previous").forEach((btn) => {
+	btn.addEventListener('click', async () => {
+		updateCardContainer(await getEntityCardsFromPagnation("previous"));
+	});
+});
 
-main.appendChild(document.createElement("p")).innerHTML = "Hello world!";
+document.querySelectorAll(".button-next").forEach((btn) => {
+	btn.addEventListener('click', async () => {
+		updateCardContainer(await getEntityCardsFromPagnation("next"));
+	});
+});
 
-initializeHeader();
-pageManager.switchPage(getPageByUid("main"));
+const updateCardContainer = (cards:HTMLElement[]) => {
+	if(cards.length <= 0)
+		return;
+	
+	container.innerHTML = "";
 
+	cards.forEach((c) => container.appendChild(c));
+}
 
-// TODO: Edit this flow of data.
-// I'm not sure how SOC it is to call an initializer like this with no return value?
-// Maybe it'll be alright if it's documented properly?
 await initializeCrawledValues();
+
+container.appendChild(document.createElement("p")).textContent = "dsjakdjaskdsjakdsajds";
+
+updateCardContainer(await getEntityCardsFromSearch("character"));
+
 console.log(seasons);
 console.log(types);
+
+

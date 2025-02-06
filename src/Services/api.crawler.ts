@@ -1,7 +1,7 @@
 // TODO: Export dynamic list of properties that can be used in the filter modal dropdowns.
 // IT IS VERY IMPORTANT THAT WE ONLY RUN THIS AT INITIALIZATION - We do NOT want to get rate limited!
 
-import { Episode, EpisodeReference, Location, Season } from "../types/api.types";
+import { Episode, EpisodeReference, Location, Season } from "./api.types";
 import { parseSignature } from "../utils/api.utils";
 import api from "./api";
 

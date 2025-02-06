@@ -1,34 +1,15 @@
+import { constructQuery } from "../utils/api.utils";
 import { API_ROOT } from "./api.config";
-import { Endpoint, Query, SearchResult } from "../types/api.types";
+import { Endpoint, Query, SearchResult } from "./api.types";
 
 
 const buildEndpoint = (endpoint: Endpoint): string => `${API_ROOT}/${endpoint}`;
-
-
-// Note:
-// We could do this using a URLSearchParams object and do "urlParams.set("query", "value")
-// This is good as is, but it's worth mentioning that we could change it in the future.
-const constructQuery = (queries: Query[], asAdditionals = false): string => {
-	if(queries.length <= 0)
-		return "";
-
-	const parsedQueries = queries.map(({key, value}) => `${key}=${value}`);
-
-	return asAdditionals ? `&${parsedQueries.join("&")}` : `?${parsedQueries.join("&")}`;
-}
 
 // TODO: Add some Try-catches to handle 4xx errors
 // TODO: Remove the explicit generic calls?
 // We could make do with returning an entity and just converting it when used.
 
 const api = {
-
-	extractEndpoint: <T extends { url: string }>(entity: T): string => {
-		// Example: https://rickandmortyapi.com/api/episode/23
-		// ["https:", "", "rickandmortyapi.com", "api", "episode", "23"]
-		const parts = entity.url.split('/');
-		return parts[parts.length - 2] || "";
-	},
 
 	getObject: {
 		// Generic searches (Possible because the API is structured <3)
@@ -69,6 +50,13 @@ const api = {
 		},
 	},
 	getResults: {
+		fromEndPoint: async <Entity>(endpoint:Endpoint, queries: Query[] = []): Promise<SearchResult<Entity> | undefined> => {
+
+			const response = await fetch(`${buildEndpoint(endpoint)}/${constructQuery(queries)}`);
+			const data = await response.json() as SearchResult<Entity> | undefined;
+	
+			return data;
+		},
 		fromPage: async <Entity>(page: Number, endpoint:Endpoint, queries: Query[] = []): Promise<SearchResult<Entity> | undefined> => {
 	
 			queries.unshift({key: "page", value: page.toString()});

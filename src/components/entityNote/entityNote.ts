@@ -1,5 +1,5 @@
 import "./entityNote.scss";
-import { Entity } from "../../types/api.types";
+import { Entity } from "../../services/api.types";
 import { getEndpointName } from "../../utils/api.utils";
 
 export const notes: { [key: string]: string } = {};
@@ -59,6 +59,9 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 			// Scroll P to bottom so it's "in-line" with the input area
 			p.scrollTop = p.scrollHeight;
 
+			// Remove listener from potential modal area
+			saveArea?.removeEventListener("mousedown", handleMouseDown);
+			
 			console.log(notes);
 		};
 
@@ -87,9 +90,6 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 				event.preventDefault();
 				closeNote(true);
 			}
-
-			// Remove listener from potential modal area
-			saveArea?.removeEventListener("mousedown", handleMouseDown);
 		});
 
 		// Ensure we replace only if p is still there

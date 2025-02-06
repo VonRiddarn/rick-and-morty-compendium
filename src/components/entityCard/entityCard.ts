@@ -1,5 +1,5 @@
-import { Character, Entity, Episode, Location } from "../../types/api.types";
-import { getEndpointName, getEntityImage, parseSignature } from "../../utils/api.utils";
+import { Character, Entity, Episode, Location } from "../../services/api.types";
+import { getEndpointName, getEntityImage } from "../../utils/api.utils";
 import { openEntityModal } from "../modal/modal";
 import "./entityCard.scss";
 
@@ -37,7 +37,8 @@ export const generateCard = (entity:Entity) => {
 }
 
 export const generateShortCard = (entity:Entity) => {
-	
+	//TODO: Implement this
+	return entity;
 }
 
 const generateCardInternal = (entity: Entity) => {
