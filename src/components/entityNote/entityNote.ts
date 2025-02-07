@@ -2,6 +2,9 @@ import "./entityNote.scss";
 import { Entity } from "../../services/api.types";
 import { getEndpointName } from "../../utils/api.utils";
 
+// Due to how the notes are kept, we can easily parse them into API calls 
+// and check if the saved endpoints are still valid. 
+// This means we can get rid of redundant data if an Entity is removed from the database.
 export const notes: { [key: string]: string } = {};
 
 export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) => {
