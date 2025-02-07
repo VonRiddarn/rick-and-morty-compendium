@@ -2,7 +2,6 @@
 @use "/src/sass/base/force-hidden";
 @use "/src/sass/base/scrollbar";
 @use "/src/sass/base/unselectable";
-@use "/src/sass/layout/header";
 
 :root {
 
@@ -20,9 +19,52 @@ body {
 }
 
 header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	background-color: white;
+	border-bottom: 1px solid black;
+	
 	position: fixed;
 	top: 0;
+	
+	width: 100%;
+	min-height: 4rem;
 	max-height: 8rem;
+
+	padding: 1rem;
+
+	div {
+		display: flex;
+	}
+
+	button {
+		background-color: rgb(255, 255, 255);
+		color: black;
+		border-radius: 50%;
+
+		margin: 0 1rem;
+		min-width: 64px;
+		min-height: 64px;
+
+		cursor: pointer;
+
+		svg {
+			vertical-align: middle;
+			max-width: calc(64px * 0.7);
+			max-height: calc(64px * 0.7);
+		}
+
+		&:hover {
+			color: blue;
+		}
+	}
+
+	h1 {
+		font-size: calc(3vw + 1.2em);
+		line-height: 1.1;
+	}
 }
 
 main {
@@ -32,6 +74,12 @@ main {
 	
 	margin-top: calc(10rem - 1.2vw);
 	width: 100%;
+
+	button {
+		aspect-ratio: 1 / 1;
+		width: 64px;
+	}
+
 }
 
 #card-container {
