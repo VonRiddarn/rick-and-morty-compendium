@@ -193,11 +193,8 @@ const generateModalHeader = (headerOptions:ModalHeaderOptions) => {
 
 	const span = document.createElement("span");
 	span.id = "modal-header";
-	const favoriteButton = span.appendChild(document.createElement("button"));
 	const wikiButton = span.appendChild(document.createElement("button"));
 	span.appendChild(document.createElement("h2")).textContent = `${headerOptions.prefix} ${headerOptions.title} ${headerOptions.suffix}`;
-
-	favoriteButton.textContent = "❤";
 
 	wikiButton.textContent = "📄";
 	wikiButton.addEventListener('click', () => {
