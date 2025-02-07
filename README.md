@@ -1,148 +1,33 @@
-# The Rick and Morty compendium
+# The Ricxk and Morty Compendium
 A streamlined way to look through the public rick and morty api!  
-We got **buttons** and **pictures**! What more could you want?
 
-## Requirements
+## 📖 About
+This is a simple Wikipedia-style page powered by the Rick and Morty API.  
+Each entity fetched from the API can also be auto searched on the wiki (with a somewhat accurate result).   
 
-**BASE!**  
+## 🛠 How to Install and run the project
+1. Install Node.js  
+	https://nodejs.org/en
+2. Clone the repo:  
+	```git clone https://github.com/VonRiddarn/rick-and-morty-compendium.git```
+3. Navigate into the project folder:  
+	```cd rick-and-morty-compendium```
+4. Install dependencies:  
+	```npm install```
+5. Run  
+	```npm run dev```
 
-**Github Readme**  
-Should contain:
-* How to download
-* How to install and compile
-* How to run
-* Folder structure
-* API and endpoints / URLs
-* Technologies, concepåts and frameworks
-* LinkedIn-link
+## 🔧 Technologies Used
+* **TypeScript**
+* **SCSS**
+* **Vite**
+* **Rick and Morty API**
 
-**Gitignore**  
+## 🥩🥔 Features
+* Responsive design that works on desktop and mobile
+* Custom note-system for each entity, allowing users to save data connected to cards
+* Custom modal-system for viewing cards, complete with pagnation controls
 
-**Strict TSConfig**  
-Example:  
-```
-"strict": true,
-"noImplicitAny": true,
-"strictFunctionTypes": true,
-"noUnusedLocals": true,
-"noUnusedParameters": true,   
-"noImplicitReturns": true,
-```
-
-**Sass**  
-Need to show proficiency in:  
-* Variables
-* Nesting
-* mixin, include
-* use, forward
-* DRY
-
-**Responsive design that works on Desktop and Mobile**  
-
-**AJAX**  
-
-**Use 3 endpoints**  
-* 1 must be concated.
-* Returned array that is shown on the UI
-* Returned object that is shown on the UI
-
-**EXTRA CREDIT!**  
-Generally high code standards.  
-1-3 extra functionalities.  
-Your project feels intentional and well structured.  
-Error handling and responsive wait (eg loading).  
-
-**Example extra functionality**  
-* Favorites
-* Saved searches
-* Grade
-* Comment or tag
-* Archive
-* Visit counter
-
-**PRESENTATION**  
-You present in fron of the class.  
-Demonstrate the product; Show and explain all functionality.  
-Extra credit: Show that you've achieved extra credit functionality.  
-
-
-## Cached element nodes
-We're creating 2 element-nodes at site initialization:  
-* Main
-* Favorites
-
-We're then mapping these instances to a "Page" enum for easy access.
-The reason for this is because we want to be able to keep state and eventlisteners alive when toggling between them.  
-This will use some extra memory and *might* have slight performance implications, which we will ignore until proven a problem.  
-
-**What this implies**  
-* Rate limit protection
-* Less loading times
-* Real time background-updates
-
-Note that we are only storing the visual elements (and button functionality) in the `main` nodes.  
-Data collected from the API, or saved locally by choice is saved separately.  
-
-**How it works**  
-When receieving new information for a page, we apply it to that page's node directly.  
-Since we are replacing main at each page load the DOM will update automatically - because the node is already in the DOM.
-
-## About the inline SVG files in index.html
-We're using inline SVGs to affect their appearance easily using the `currentcolor` attribute as fill.  
-The plan was originally to inject the SVGs dynamically at runtime, but that would introduce unnecessary overhead and complexity.  
-
-**Considered approaches**  
-* Async fetching of local .svg files
-* An SVG repository object storing SVGs as strings
-
-**Why it was decided against**  
-Although dynamic injection would have a nice structure to it, we would still need to have the original file or variable use `fill="currentcolor"` for it to be effective.  
-Otherwise, we'd have to replace the default fill with `currentcolor` at injection.  
-Due to the projects low scope, it's very unlikely that we will face a scenario where we'd benefit marginally from separating the SVGs at this time.  
-On the contray we'd sacrifice the browsers ability to locally cache the static svg element.  
-
-## SEO Implications
-~~Due to how we are loading the headers containing the `h1` tag, as well as the content for `main` dynamically we are missing out on optimization.~~  
-~~This is okay in a learning-oriented environment like a school project.~~  
-~~In production it would be best to look into `server-side rendering` or `static site generation`.~~  
-
-We are using a static header with the `h1` base as the main page.  
-This does affect the SEO positively, but wasn't the reason for this design choise.  
-Any and all advanced SEO considerations will not be humored during this project as it will probably fall out of scope, especially with this tech stack.
-
-## Why we are using EpisodeReference and parsing between crawls
-The reason for this is simple: memory usage.  
-Sure, the data collected is relatively light weight, but an entire episode is much heavier than an episode reference.  
-When crawling through the episodes we are parsing the data between each fetch instead of mass-collecting and mass-parsing.  
-In large-scale environments using hundreads of episodes (there are `51` at the time of writing, with `20` yet to be added),  
-this approach will ensure that the memory footprint is stable and prevents the application from running out of memory.
-
-**Memory usage estimations**
-| Severity | Episode | EpisodeReference | Reduction (%) |
-| - | - | - | - |
-| Best | ~1638 bytes | ~179 bytes | 89.06% |
-| Average | ~3402 bytes | ~179 bytes | 94.73% |
-| Worst | ~6144 bytes | ~180 bytes | 97.07% |  
-
-*Estimations have been made with the help of ai using a snippet of the dataset.*  
-*As we can see in these estimations, the average Episode can grow up to about `3,4 KB` in size, whilst the reference is just around `0,18 KB`.*  
-
-**This estimation takes into account**
-* Baseline overhead from JS objects
-* Baseline overhead from property references
-* Variable values for each property references
-
-**Pros**
-* Very low risk of memory bottleneck.
-* Easy to interfere with process for testing.
-
-**Cons**
-* Excessive calls to the garbage collector.
-* Reduced readability due to callstack jumping.
-
-## Notes
-Make a dictionary "notes" or something.  
-Key is a string with the syntax: type_id  
-Value is the note.  
-
-This means we can collect any note by parsing the entity endpoint and adding the entity id as a key.
+## 🔗 My socials
+[Github - VonRiddarn](https://github.com/VonRiddarn)  
+[LinkedIn - Timmy Öhman](https://www.linkedin.com/in/timmyohman/)  
