@@ -6,25 +6,14 @@ import "./entityCard.scss";
 export const generateCard = (entity:Entity) => {
 
 	let card = null;
+	const epn = getEndpointName(entity);
 
-	switch(getEndpointName(entity))
-	{
-		case "character":
-		card = generateCardInternal(entity);
-		break;
-
-		case "location":
-		card = generateCardInternal(entity);
-		break;
-
-		case "episode":
-		card = generateCardInternal(entity);
-		break;
-
-		default:
+	if(epn !== "character" && epn !== "episode" && epn !== "location") {
 		console.error("COULD NOT FIND ENDPOINT OF CARD!");
 		return null;
 	}
+	
+	card = generateCardInternal(entity);
 	
 	card.classList.add("entity-card");
 	card.classList.add("unselectable");
