@@ -142,7 +142,7 @@ const updateModalHistory = (newPage: string) => {
 };
 
 export const openFilterModal = () => {
-	updateModal(getErrorModal("FILTER"), false);
+	updateModal(getErrorModal("The UI for this function is not yet implemented."), false);
 }
 
 export const openEntityModal = (entity:Entity | undefined, ignoreModalHistory = false) => {
