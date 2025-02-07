@@ -86,7 +86,7 @@ export const getEntityNoteComponent = (entity: Entity, saveArea?: HTMLElement) =
 		textarea.addEventListener("keypress", (event) => {
 			// I'm the smartest man alive!
 			// Combine a conditional with a scoped OR conditional to make more than 1 comparison!
-			if (event.code === "Enter" && (event.shiftKey || event.ctrlKey)) {
+			if (event.code === "Enter" && !event.shiftKey) {
 				event.preventDefault();
 				closeNote(true);
 			}
