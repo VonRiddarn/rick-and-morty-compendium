@@ -1,8 +1,12 @@
 .entity-card {
 	display: flex;
 	flex-direction: column;
-	background-color: blanchedalmond;
-	width: 200px;
+
+	background-color: rgb(255, 255, 255);
+	border: 1px dashed black;
+
+	aspect-ratio: 1 / 1.5;
+	width: 300px;
 	padding: 0.5rem;
 	margin: 1rem;
 
