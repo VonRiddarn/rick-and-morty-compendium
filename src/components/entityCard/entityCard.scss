@@ -10,6 +10,10 @@
 
 	cursor: pointer;
 
+	img, svg {
+		aspect-ratio: 1 / 1;
+	}
+
 	&:hover {
 		border-radius: variables.$radius-rounded-extra-subtle;
 		border: 1px dashed black;
@@ -31,7 +35,15 @@
 	width: 100%;
 
 	img, svg {
+		max-height: 100px;
 		border-radius: variables.$radius-rounded-extra-subtle;
+
+		text{
+			font-size: 88px;
+		}
+		#episodeText {
+			display: none;
+		}
 	}
 
 	span {
