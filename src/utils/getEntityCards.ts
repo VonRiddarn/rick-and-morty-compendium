@@ -16,7 +16,7 @@ export const getEntityCardsFromSearch = async (endpoint: Endpoint, queries: Quer
 	}
 
 	currentSearch = searchResult;
-	return searchResult.results.map((e) => generateCard(e) as HTMLElement);
+	return searchResult.results.map((e) => generateCard(e, "long") as HTMLElement);
 }
 
 export const getEntityCardsFromUrl = async (url: string) => {
@@ -30,7 +30,7 @@ export const getEntityCardsFromUrl = async (url: string) => {
 	}
 
 	currentSearch = searchResult;
-	return searchResult.results.map((e) => generateCard(e)) as HTMLElement[];
+	return searchResult.results.map((e) => generateCard(e, "long")) as HTMLElement[];
 }
 
 export const getEntityCardsFromPagnation = async (direction: "next" | "previous") => {

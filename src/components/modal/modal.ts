@@ -276,7 +276,7 @@ const getLocationModal = (location:Location) => {
 		if(!character)
 			return;
 		
-		residents.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
+		residents.appendChild(document.createElement("li")).appendChild(generateCard(character, "short") as HTMLElement);
 	});
 
 
@@ -300,7 +300,7 @@ const getEpisodenModal = (episode:Episode) => {
 		if(!character)
 			return;
 		
-		actors.appendChild(document.createElement("li")).appendChild(generateCard(character) as HTMLElement);
+		actors.appendChild(document.createElement("li")).appendChild(generateCard(character, "short") as HTMLElement);
 
 	});
 
