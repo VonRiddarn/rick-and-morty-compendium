@@ -1,14 +1,40 @@
-.entity-card {
+@use "/src/sass/utils/variables";
+
+@mixin generateCardBase($a-ratio) {
 	display: flex;
-	flex-direction: column;
+	background-color: white;
 
-	background-color: rgb(255, 255, 255);
-	border: 1px dashed black;
+	aspect-ratio: $a-ratio;
 
-	aspect-ratio: 1 / 1.5;
-	width: 300px;
-	padding: 0.5rem;
-	margin: 1rem;
+	padding: 1rem;
 
 	cursor: pointer;
+
+	&:hover {
+		border-radius: variables.$radius-rounded-extra-subtle;
+		border: 1px dashed black;
+	}
+}
+
+.entity-card-long {
+	@include generateCardBase($a-ratio: 1 / 1.5);
+	
+	flex-direction: column;
+
+	width: 300px;
+}
+
+.entity-card-short {
+	@include generateCardBase($a-ratio: 1.5 / 1);
+
+	height: 100px;
+	width: 100%;
+
+	img, svg {
+		border-radius: variables.$radius-rounded-extra-subtle;
+	}
+
+	span {
+		margin-left: 1rem;
+	}
 }
