@@ -10,12 +10,6 @@
 
 	cursor: pointer;
 
-	@media only screen and (max-width: variables.$breakpoint) 
-	{
-		border-radius: variables.$radius-rounded-extra-subtle;
-		border: 1px dashed black;
-	} 
-
 	&:hover {
 		border-radius: variables.$radius-rounded-extra-subtle;
 		border: 1px dashed black;
