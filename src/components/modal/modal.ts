@@ -224,18 +224,21 @@ const getCharacterModal = (character:Character) => {
 	container.appendChild(document.createElement("p")).textContent = character.species;
 	container.appendChild(document.createElement("p")).textContent = character.gender;
 	container.appendChild(document.createElement("p")).textContent = character.type;
-	const locationButton = container.appendChild(document.createElement("button"));
-	const homeButton = container.appendChild(document.createElement("button"));
+
+	const locationSpan = container.appendChild(document.createElement("span"));
+	locationSpan.id = "location-buttons";
+	const locationButton = locationSpan.appendChild(document.createElement("button"));
+	const homeButton = locationSpan.appendChild(document.createElement("button"));
 
 	locationButton.textContent = `📍 ${character.location.name}`;
-	locationButton.classList.add("ref-button");
+	locationButton.classList.add("location-button");
 	locationButton.addEventListener('click', async () => {
 		if(character.location.url)
 			openEntityModal(await api.getObject.fromUrl<Location>(character.location.url));
 	});
 	
 	homeButton.textContent = `🏠 ${character.origin.name}`;
-	homeButton.classList.add("ref-button");
+	homeButton.classList.add("location-button");
 	homeButton.addEventListener('click', async () => {
 		if(character.origin.url)
 			openEntityModal(await api.getObject.fromUrl<Location>(character.origin.url));
@@ -245,11 +248,10 @@ const getCharacterModal = (character:Character) => {
 	const appearances = container.appendChild(document.createElement("ul"));
 
 	character.episode.forEach(async (e) => {
-		const episodeButton = appearances.appendChild(document.createElement("li")).appendChild(document.createElement("button"));
-		episodeButton.classList.add("ref-button");
-		episodeButton.textContent = await getEpisodeNameFromUrl(e);
+		const ep = await api.getObject.fromUrl<Episode>(e);
+		const episodeButton = appearances.appendChild(document.createElement("li")).appendChild(generateCard(ep!, "short") as HTMLElement);
 		episodeButton.addEventListener('click', async () => {
-			openEntityModal(await api.getObject.fromUrl<Episode>(e));
+			openEntityModal(ep);
 		});
 	});
 

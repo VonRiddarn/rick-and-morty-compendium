@@ -76,3 +76,14 @@
 		margin: 0 1%;
 	}
 }
+
+#location-buttons {
+	display: flex;
+	flex-direction: column;
+	width: 45%;
+	* {
+		margin: 1rem 0;
+
+		height: 32px;
+	}
+}
