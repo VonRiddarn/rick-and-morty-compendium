@@ -1,4 +1,4 @@
-# The Ricxk and Morty Compendium
+# The Rick and Morty Compendium
 A streamlined way to look through the public rick and morty api!  
 
 ## 📖 About
