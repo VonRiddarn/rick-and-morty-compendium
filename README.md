@@ -48,7 +48,7 @@ yet manages to mirror some of that workflow in a trivial state.
 
 ### Optimization
 
-The app only saves tiny amount of relevant and LOCAL (!) data to the cache at during requests.  
+The app only saves tiny amount of relevant and LOCAL (!) data to the cache at requests.  
 For example: The crawler at initialization only collects 20 episode responses at a time,
 parses them into episode references (which is a custom more memory efficient type).  
 This means that if the database grows indefinitely, the app will never experience a critical fail due to irresponsible initialization logic.
